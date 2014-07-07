@@ -1,8 +1,12 @@
 
-<%= form_for :timerecord, url: new_job_timerecord_path do |f| %>
+<%= form_for :timerecord, url: timerecords_path do |f| %>
   <p>
-    <%= @job.JobNumber %>
+    <%= params[:job_id]%>
   	
+  </p>
+  <p>
+  <%= f.hidden_field :jobnumber %>
+    
   </p>
   <p>
     <%= f.label :taskname %><br>

@@ -13,13 +13,6 @@
 
 ActiveRecord::Schema.define(version: 20140704135421) do
 
-  create_table "jobs", force: true do |t|
-    t.string   "JobNumber"
-    t.string   "CompanyName"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
   create_table "tasks", force: true do |t|
     t.string   "taskname"
     t.datetime "created_at"
@@ -27,7 +20,7 @@ ActiveRecord::Schema.define(version: 20140704135421) do
   end
 
   create_table "timerecords", force: true do |t|
-    t.integer  "job_id"
+    t.string   "jobnumber"
     t.integer  "user_id"
     t.integer  "task_id"
     t.datetime "timein"

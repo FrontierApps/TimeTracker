@@ -1,18 +1,15 @@
-class TimerecordController < ApplicationController
+class TimerecordsController < ApplicationController
 	def Index
 	end
 
 	def new
-		@time = Timerecord.where(:user_id => current_user.id).where(:timeout => nil).exists?
-		if @time
-		#@timeout = Timerecord.select("id").where(:user_id => current_user.id).where(:timeout => nil)
-        #redirect_to edit_job_timerecord_path(:id, :job_id)
-		else
-	    @job = Job.find(params[:job_id])
+		#@time = Timerecord.where(:user_id => current_user.id).where(:timeout => nil).exists?
+		
+	    
 	    @timerecord = Timerecord.new   
-	    end
-	    @job = Job.find(params[:job_id])
-	    @timerecord = Timerecord.new
+	    
+	    @timerecord.jobnumber = params[:job_id]
+	    
 	end
 
 	def edit
@@ -28,7 +25,6 @@ class TimerecordController < ApplicationController
 
 	  @timerecord = Timerecord.new(timerecord_params)
 	  @timerecord.user_id = current_user.id
-	  @timerecord.job_id = params[:job_id]
 	  @timerecord.timein = Time.current
 	  @timerecord.save
 	  
@@ -41,6 +37,6 @@ class TimerecordController < ApplicationController
 
 	private
 		def timerecord_params
-		params.require(:timerecord).permit(:task, :job_id, :user_id, :inout, :task_id)
+		params.require(:timerecord).permit(:task, :jobnumber, :user_id, :inout, :task_id)
 	end
 end
