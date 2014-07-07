@@ -1,3 +1,3 @@
 class Job < ActiveRecord::Base
-	has_many :timerecord
+	has_many :timerecords
 end

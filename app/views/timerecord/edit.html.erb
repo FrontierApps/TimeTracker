@@ -1,8 +1,7 @@
-
-<%= form_for :timerecord, url: new_job_timerecord_path do |f| %>
+<h1>Editing part</h1>
+<%= form_for :part, url: edit_job_timerecord_path(@timerecord), method: :patch do |f| %>
   <p>
-    <%= @job.JobNumber %>
-  	
+  	<%= @job.JobNumber %>
   </p>
   <p>
     <%= f.label :taskname %><br>
@@ -11,6 +10,6 @@
     
  
   <p>
-    <%= f.submit "Time In"%>	
+    <%= f.submit "Time Out"%>	
   </p>
 <% end %>
