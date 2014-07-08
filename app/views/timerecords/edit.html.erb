@@ -1,11 +1,18 @@
-<h1>Editing part</h1>
-<%= form_for :timerecord, url: edit_timerecords_path(@timerecord), method: :patch do |f| %>
+<h1>Time Out</h1>
+<%= form_for :timerecord, url: timerecord_path(@timerecord), method: :patch do |f| %>
   <p>
   	
   </p>
   <p>
-    <%= f.label :taskname %><br>
-    <%= f.collection_select :task_id, Task.order(:taskname),:id, :taskname, include_blank: true %>
+   you have been
+    <%= @task.taskname %>
+    on job
+    <%= @timerecord.jobnumber %> 
+    for
+    <% @time_in_mins = ((Time.current - @timerecord.timein) / 1.minute).ceil %>
+  <% @time_in_hours = ((Time.current - @timerecord.timein) / 1.hour).ceil %>
+  <%=  @time_in_hours - 1 %> hours
+  <%=  @time_in_mins - (@time_in_mins/60).ceil * 60 %> mins
   </p>
     
  

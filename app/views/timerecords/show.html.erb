@@ -1,21 +1,32 @@
 <p>
-  <strong>Part Number:</strong>
-  <%= @part.part_number %>
+  <strong>Job Number:</strong>
+  <%= @timerecord.jobnumber %>
 </p>
  
 <p>
-  <strong>Parts per length:</strong>
-  <%= @part.parts_per_length %>
+  <strong>User:</strong>
+  <%= current_user.email %>
 </p>
 <p>
-  <strong>Material:</strong>
-  <%= @part.material_id %>
+  <strong>Task:</strong>
+  <%= @task.taskname %>
 </p>
 <p>
-  <strong>description:</strong>
-  <%= @part.description %>
+  <strong>Time In:</strong>
+  <%= @timerecord.timein.strftime("%I:%M %p") %>
 </p>
 <p>
-  <strong>time per part:</strong>
-  <%= @part.time_per_part %>
+  <% if @timerecord.timeout == nil %>
+  <strong>current time on project:</strong>
+  <% @time_in_mins = ((Time.current - @timerecord.timein) / 1.minute).ceil %>
+  <% @time_in_hours = ((Time.current - @timerecord.timein) / 1.hour).ceil %>
+  <%=  @time_in_hours -1 %> hours
+  <%=  @time_in_mins - (@time_in_mins/60).ceil * 60 %> mins
+  <% else %>
+  <strong>final time on project:</strong>
+   <% @time_in_mins = ((@timerecord.timeout - @timerecord.timein) / 1.minute).ceil %>
+  <% @time_in_hours = ((@timerecord.timeout - @timerecord.timein) / 1.hour).ceil %>
+  <%=  @time_in_hours -1 %> hours
+  <%=  @time_in_mins - (@time_in_mins/60).ceil * 60 %> mins
+  <% end %>
 </p>
