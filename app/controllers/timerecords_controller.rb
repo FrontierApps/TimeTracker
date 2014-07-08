@@ -3,18 +3,25 @@ class TimerecordsController < ApplicationController
 	end
 
 	def new
-		#@time = Timerecord.where(:user_id => current_user.id).where(:timeout => nil).exists?
-		
+				
+		time = Timerecord.where(:user_id => current_user.id).where(:timeout => nil).exists?
+		openJob = Timerecord.select("id").where(:user_id => current_user.id).where(:timeout => nil)	
+		if time
+		 render 'edit'
+		  	
+		  
+		else 
+		  flash[:notice] = "go home"
+		  @timerecord = Timerecord.new	    
+	        @timerecord.jobnumber = params[:job_id]
+		end
 	    
-	    @timerecord = Timerecord.new   
-	    
-	    @timerecord.jobnumber = params[:job_id]
 	    
 	end
 
 	def edit
       #@openJob = Timerecord.where(:user_id => current_user.id).where(:timeout => nil)
-      @timerecord = Timerecord.find(4)
+      @timerecord = Timerecord.find(openJob)
     end
 
     def show
