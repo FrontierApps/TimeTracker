@@ -51,6 +51,6 @@ test:
 production:
  adapter: mysql2
  database: rails
- username: rails
- password: bs8wET4JjP
- host: localhost
+ username: shane
+ password: shane4878
+ host: 99.29.188.14
