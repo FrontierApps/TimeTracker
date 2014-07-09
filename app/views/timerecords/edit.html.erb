@@ -10,6 +10,7 @@
   <% @time_in_hours = ((Time.current - @timerecord.timein) / 1.hour).ceil %>
   <%=  @time_in_hours - 1 %> hours
   <%=  @time_in_mins - (@time_in_mins/60).ceil * 60 %> mins
+  
   </p>
     
  
