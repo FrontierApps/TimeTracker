@@ -6,15 +6,11 @@ class TimerecordsController < ApplicationController
 				
 		 time = Timerecord.where(:user_id => current_user.id).where(:timeout => nil).exists?
 	  if time
-
-		@timerecord = Timerecord.where("user_id = ? AND timeout = ?", current_user.id, nil)
-		#@timeid = Timerecord.find(params[:openJob])	  	
-		redirect_to :action => 'edit', :id => @timerecord.id
-		
-	  else 
-		  
-		  @timerecord = Timerecord.new	    
-	      @timerecord.jobnumber = params[:timerecord]
+		@timerecord = Timerecord.where(:user_id => current_user.id).where(:timeout => nil).first
+     	redirect_to :action => 'edit', :id => @timerecord.id		
+	  else 		  
+		 @timerecord = Timerecord.new	    
+	     @timerecord.jobnumber = params[:job_id]
 	  end
 	end
 	def create
@@ -26,16 +22,26 @@ class TimerecordsController < ApplicationController
 	  
 	  if @timerecord.save
   			redirect_to @timerecord
+  			
       else
   			render 'new'
   	  end
 	end
 
 	def edit
+
 	  @timerecord = Timerecord.find(params[:id])
       @task = Task.find(@timerecord.task_id)
-      #@openJob = Timerecord.where(:user_id => current_user.id).where(:timeout => nil)
-      
+     
+    end
+    def update
+      @timerecord = Timerecord.find(params[:id])
+ 	  @timerecord.timeout = Time.current
+      if @timerecord.update(timerecord_params)
+      	redirect_to @timerecord
+      else
+        render 'edit'
+      end
     end
 
     def show
@@ -48,6 +54,6 @@ class TimerecordsController < ApplicationController
 
 	private
 		def timerecord_params
-		params.require(:timerecord).permit(:task, :jobnumber, :user_id, :inout, :task_id)
+		params.permit(:jobnumber, :user_id, :timein, :timeout, :task_id)
 	end
 end

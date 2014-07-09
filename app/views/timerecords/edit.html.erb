@@ -1,10 +1,7 @@
-<h1>Time Out</h1>
+<h1><strong> You need to log out of Job number <%= @timerecord.jobnumber %> </strong></h1>
 <%= form_for :timerecord, url: timerecord_path(@timerecord), method: :patch do |f| %>
   <p>
-  	
-  </p>
-  <p>
-   you have been
+   you have been doing
     <%= @task.taskname %>
     on job
     <%= @timerecord.jobnumber %> 
