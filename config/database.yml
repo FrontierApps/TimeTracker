@@ -49,7 +49,8 @@ test:
 #     url: <%= ENV['DATABASE_URL'] %>
 #
 production:
-  <<: *default
-  database: TimeTracker_production
-  username: shane
-  password: <%= ENV['TIMETRACKER_DATABASE_PASSWORD'] %>
+ adapter: mysql2
+ database: rails
+ username: rails
+ password: FCGf7mJj8w
+ host: localhost
