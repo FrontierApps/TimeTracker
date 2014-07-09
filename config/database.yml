@@ -51,6 +51,6 @@ test:
 production:
  adapter: mysql2
  database: rails
- username: rubyonrails
+ username: rails
  password: bs8wET4JjP
  host: localhost
