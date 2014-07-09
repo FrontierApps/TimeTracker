@@ -37,7 +37,7 @@ class TimerecordsController < ApplicationController
     def update
       @timerecord = Timerecord.find(params[:id])
  	  @timerecord.timeout = Time.current
-      if @timerecord.update(timerecord_params)
+      if @timerecord.update(timerecord1_params)
       	redirect_to @timerecord
       else
         render 'edit'
@@ -49,11 +49,14 @@ class TimerecordsController < ApplicationController
        @task = Task.find(@timerecord.task_id)  
 
     end	
-
+	private
+		def timerecord_params
+		params.require(:timerecord).permit(:jobnumber, :user_id, :timein, :timeout, :task_id)
+	end
 	
 
 	private
-		def timerecord_params
+		def timerecord1_params
 		params.permit(:jobnumber, :user_id, :timein, :timeout, :task_id)
 	end
 end
