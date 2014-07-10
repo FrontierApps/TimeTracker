@@ -1,13 +1,13 @@
 
 <%= form_for :timerecord, url: timerecords_path do |f| %>
   
-    <h1><%= params[:job_id]%></h1>
+    <p style="font-size:3em"><%= params[:job_id]%></p>
     <p>
     <%= f.hidden_field :jobnumber %>
       
     </p>
-    <p class="big_drop">
-      <%= f.label :taskname%><br>
+    
+    <p class="big_drop"> 
     <%= f.collection_select(:task_id, Task.order(:taskname), :id, :taskname, include_blank: false)%>
     </p>
       
