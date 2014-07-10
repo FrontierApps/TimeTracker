@@ -6,9 +6,9 @@
     <%= f.hidden_field :jobnumber %>
       
     </p>
-    <p>
-      <%= f.label :taskname %><br>
-      <%= f.collection_select :task_id, Task.order(:taskname),:id, :taskname, include_blank: true %>
+    <p class="big_drop">
+      <%= f.label :taskname%><br>
+    <%= f.collection_select(:task_id, Task.order(:taskname), :id, :taskname, include_blank: false)%>
     </p>
       
    
