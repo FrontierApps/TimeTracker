@@ -1,17 +1,19 @@
 
 <%= form_for :timerecord, url: timerecords_path do |f| %>
-  <h1><%= params[:job_id]%></h1>
-  <p>
-  <%= f.hidden_field :jobnumber %>
-    
-  </p>
-  <p>
-    <%= f.label :taskname %><br>
-    <%= f.collection_select :task_id, Task.order(:taskname),:id, :taskname, include_blank: true %>
-  </p>
-    
- 
-  <p>
-    <%= f.submit "Time In"%>	
-  </p>
+  
+    <h1><%= params[:job_id]%></h1>
+    <p>
+    <%= f.hidden_field :jobnumber %>
+      
+    </p>
+    <p>
+      <%= f.label :taskname %><br>
+      <%= f.collection_select :task_id, Task.order(:taskname),:id, :taskname, include_blank: true %>
+    </p>
+      
+   
+    <p>
+      <%= f.submit "Time In", :class => "btn btn-success"%>	
+    </p>
+
 <% end %>
