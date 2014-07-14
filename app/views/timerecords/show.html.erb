@@ -15,6 +15,14 @@
   <strong>Time In:</strong>
   <%= @timerecord.timein.strftime("%I:%M %p") %>
 </p>
+<% if @timerecord.timeout == nil %>
+
+ <% else %>
+<p>
+  <strong>Time Out:</strong>
+  <%= @timerecord.timeout.strftime("%I:%M %p") %>
+</p>
+<% end %>
 <p>
   <% if @timerecord.timeout == nil %>
   <strong>current time on project:</strong>

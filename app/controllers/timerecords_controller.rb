@@ -4,10 +4,13 @@ class TimerecordsController < ApplicationController
 	 d=d.at_beginning_of_week
      
 	 @tasks = Task.all
-	 @timerecord = Timerecord.where(:user_id => current_user.id).where('updated_at >= ?', Time.now).all
+	 @timerecord = Timerecord.where(:user_id => current_user.id).where('updated_at >= ?', d).all
 	 @timetotal = 0
 	 @timerecord.each do |t|
+	 if (t.timeout == nil)
+	 else	
 	   @timetotal = @timetotal + (t.timeout - t.timein)
+	 end
 	 end
 	 
 	 

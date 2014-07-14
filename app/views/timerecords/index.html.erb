@@ -14,6 +14,9 @@
   </tr>
  
 <% @timerecord.where(:task_id => task.id).find_each do |t| %>
+<%if (t.timeout == nil)%>
+
+<%else%>
   <tr>
     <td><%= t.jobnumber %></td>
     <td><%= t.timein.strftime("%I:%M %p") %></td>
@@ -23,6 +26,8 @@
     <td><%=  @time_in_hours-1 %> hours
     <%=  @time_in_mins - (@time_in_mins/60).ceil * 60 %> mins</td>
   </tr>
+  
+<% end %>
 <% end %>
 
  
