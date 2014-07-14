@@ -8,6 +8,7 @@ class TimerecordsController < ApplicationController
 	 @timetotal = 0
 	 @timerecord.each do |t|
 	 if (t.timeout == nil)
+	 	@timetotal = @timetotal + (Time.current - t.timein)
 	 else	
 	   @timetotal = @timetotal + (t.timeout - t.timein)
 	 end

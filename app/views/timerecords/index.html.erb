@@ -15,7 +15,15 @@
  
 <% @timerecord.where(:task_id => task.id).find_each do |t| %>
 <%if (t.timeout == nil)%>
-
+ <tr>
+    <td><%= t.jobnumber %></td>
+    <td><%= t.timein.strftime("%I:%M %p") %></td>
+    <td><%= Time.current.strftime("%I:%M %p") %></td>
+     <% @time_in_mins = ((Time.current - t.timein) / 1.minute).ceil %>
+     <% @time_in_hours = ((Time.current - t.timein) / 1.hour).ceil %>
+    <td><%=  @time_in_hours-1 %> hours
+    <%=  @time_in_mins - (@time_in_mins/60).ceil * 60 %> mins</td>
+  </tr>
 <%else%>
   <tr>
     <td><%= t.jobnumber %></td>
@@ -26,7 +34,7 @@
     <td><%=  @time_in_hours-1 %> hours
     <%=  @time_in_mins - (@time_in_mins/60).ceil * 60 %> mins</td>
   </tr>
-  
+
 <% end %>
 <% end %>
 
