@@ -1,2 +1,48 @@
-<h1>time record index</h1>
-<p>Find me in app/views/welcome/index.html.erb</p>
+<% if current_user.admin? %>
+		<h1>your an administrator</h1>
+	<%else%>
+		<h1>Here are your hours for the week</h1>
+		<h2></h2>
+<% @tasks.each do |task| %>
+<%= task.taskname %>
+<table>
+  <tr>
+    <th class="column_wide">Job Number</th>
+    <th class="column_wide">Time In</th>
+    <th class="column_wide">Time Out</th>
+    <th class="column_wide">Total</th>
+  </tr>
+ 
+<% @timerecord.where(:task_id => task.id).find_each do |t| %>
+  <tr>
+    <td><%= t.jobnumber %></td>
+    <td><%= t.timein.strftime("%I:%M %p") %></td>
+    <td><%= t.timeout.strftime("%I:%M %p") %></td>
+     <% @time_in_mins = ((t.timeout - t.timein) / 1.minute).ceil %>
+     <% @time_in_hours = ((t.timeout - t.timein) / 1.hour).ceil %>
+    <td><%=  @time_in_hours-1 %> hours
+    <%=  @time_in_mins - (@time_in_mins/60).ceil * 60 %> mins</td>
+  </tr>
+<% end %>
+
+ 
+</table>
+<%end%>
+<table>
+<tr>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td>
+    <% @time_in_mins = ((@timetotal) / 1.minute).ceil %>
+    <% @time_in_hours = ((@timetotal) / 1.hour).ceil %>
+    <%=  @time_in_hours -1 %> hours
+  <%=  @time_in_mins - (@time_in_mins/60).ceil * 60 %> mins  </td>
+  </tr>
+</table>
+<%end%>
+  
+    
+
+	
+

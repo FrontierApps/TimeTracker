@@ -1,7 +1,18 @@
 class TimerecordsController < ApplicationController
-	def Index
-	end
+	def index
+	 d=DateTime.now
+	 d=d.at_beginning_of_week
+     
+	 @tasks = Task.all
+	 @timerecord = Timerecord.where(:user_id => current_user.id).where('updated_at >= ?', Time.now).all
+	 @timetotal = 0
+	 @timerecord.each do |t|
+	   @timetotal = @timetotal + (t.timeout - t.timein)
+	 end
+	 
+	 
 
+	end
 	def new
 				
 		 time = Timerecord.where(:user_id => current_user.id).where(:timeout => nil).exists?
