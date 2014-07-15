@@ -12,7 +12,7 @@ Rails.application.routes.draw do
   
   
   resources :timerecords
-  
+  get 'timerecords/timeout/:id' => 'timerecords#timeout'
   
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'

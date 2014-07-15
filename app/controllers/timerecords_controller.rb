@@ -22,7 +22,7 @@ class TimerecordsController < ApplicationController
 	  if time
 		@exist_timerecord = Timerecord.where(:user_id => current_user.id).where(:timeout => nil).first
      	if (@exist_timerecord.jobnumber == params[:job_id])
-     	redirect_to :action => 'edit', :id => @exist_timerecord.id		
+     	redirect_to :action => 'timeout', :id => @exist_timerecord.id		
         else
          flash[:notice] = "Go to your home"
          @old_timerecord = Timerecord.find_by(id: @exist_timerecord.id)
@@ -49,6 +49,13 @@ class TimerecordsController < ApplicationController
   			render 'new'
   	  end
 	end
+
+	def timeout
+
+	  @timerecord = Timerecord.find(params[:id])
+      @task = Task.find(@timerecord.task_id)
+     
+    end
 
 	def edit
 

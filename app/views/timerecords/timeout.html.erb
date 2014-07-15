@@ -1,0 +1,20 @@
+<h1><strong> You need to log out of Job number <%= @timerecord.jobnumber %> </strong></h1>
+<%= form_for :timerecord, url: timerecord_path(@timerecord), method: :patch do |f| %>
+  <p>
+   you have been doing
+    <%= @task.taskname %>
+    on job
+    <%= @timerecord.jobnumber %> 
+    for
+    <% @time_in_mins = ((Time.current - @timerecord.timein) / 1.minute).ceil %>
+  <% @time_in_hours = ((Time.current - @timerecord.timein) / 1.hour).ceil %>
+  <%=  @time_in_hours - 1 %> hours
+  <%=  @time_in_mins - (@time_in_mins/60).ceil * 60 %> mins
+  
+  </p>
+    
+ 
+  <p>
+    <%= f.submit "Time Out", :class => "btn btn-danger big_button"%>	
+  </p>
+<% end %>

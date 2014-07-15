@@ -17,7 +17,7 @@
 <% @timerecord.where(:task_id => task.id).find_each do |t| %>
 <%if (t.timeout == nil)%>
  <tr>
-    <td><%= t.jobnumber %></td>
+    <td><%=link_to t.jobnumber, edit_timerecord_path(t.id) %></td>
     <td><%= t.timein.strftime("%I:%M %p") %></td>
     <td><%= Time.current.strftime("%I:%M %p") %></td>
      <% @time_in_mins = ((Time.current - t.timein) / 1.minute).ceil %>
@@ -27,7 +27,7 @@
   </tr>
 <%else%>
   <tr>
-    <td><%= t.jobnumber %></td>
+    <td><%=link_to t.jobnumber, edit_timerecord_path(t.id) %></td>
     <td><%= t.timein.strftime("%I:%M %p") %></td>
     <td><%= t.timeout.strftime("%I:%M %p") %></td>
      <% @time_in_mins = ((t.timeout - t.timein) / 1.minute).ceil %>
