@@ -17,12 +17,19 @@ class TimerecordsController < ApplicationController
 	 
 
 	end
-	def new
-				
+	def new				
 		 time = Timerecord.where(:user_id => current_user.id).where(:timeout => nil).exists?
 	  if time
-		@timerecord = Timerecord.where(:user_id => current_user.id).where(:timeout => nil).first
-     	redirect_to :action => 'edit', :id => @timerecord.id		
+		@exist_timerecord = Timerecord.where(:user_id => current_user.id).where(:timeout => nil).first
+     	if (@exist_timerecord.jobnumber == params[:job_id])
+     	redirect_to :action => 'edit', :id => @exist_timerecord.id		
+        else
+         flash[:notice] = "Go to your home"
+         @old_timerecord = Timerecord.find_by(id: @exist_timerecord.id)
+	     @old_timerecord.update(timeout: Time.current)
+         @timerecord = Timerecord.new	    
+	     @timerecord.jobnumber = params[:job_id]
+        end
 	  else 		  
 		 @timerecord = Timerecord.new	    
 	     @timerecord.jobnumber = params[:job_id]

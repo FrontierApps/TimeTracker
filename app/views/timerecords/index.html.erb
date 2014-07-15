@@ -5,7 +5,8 @@
 		<h2></h2>
 <% @tasks.each do |task| %>
 <%= task.taskname %>
-<table>
+<div class="table-responsive">
+<table class="table table-condensed">
   <tr>
     <th class="column_wide">Job Number</th>
     <th class="column_wide">Time In</th>
@@ -40,8 +41,9 @@
 
  
 </table>
+</div>
 <%end%>
-<table>
+<table class="table table-condensed">
 <tr>
     <td></td>
     <td></td>
