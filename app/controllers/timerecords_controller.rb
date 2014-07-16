@@ -7,11 +7,11 @@ class TimerecordsController < ApplicationController
 	 @timerecord = Timerecord.where(:user_id => current_user.id).where('updated_at >= ?', d).all
 	 @timetotal = 0
 	 @timerecord.each do |t|
-	 if (t.timeout == nil)
-	 	@timetotal = @timetotal + (Time.current - t.timein)
-	 else	
-	   @timetotal = @timetotal + (t.timeout - t.timein)
-	 end
+ 	 if (t.timeout == nil)
+ 	 	@timetotal = @timetotal + (Time.current - t.timein)
+ 	 else	
+ 	  @timetotal = @timetotal + (t.timeout - t.timein)
+ 	 end
 	 end
 	 
 	 
@@ -65,12 +65,22 @@ class TimerecordsController < ApplicationController
     end
     def update
       @timerecord = Timerecord.find(params[:id])
- 	  @timerecord.timeout = Time.current
-      if @timerecord.update(timerecord1_params)
-      	redirect_to @timerecord
-      else
-        render 'edit'
-      end
+      if (@timerecord.timeout == nil)
+ 	     @timerecord.timeout = Time.current
+       if @timerecord.update(timerecord1_params)
+       redirect_to @timerecord
+       else
+       render 'edit'
+       end
+ 	  else
+      if @timerecord.update(timerecord_params)
+       redirect_to @timerecord
+       else
+       render 'edit'
+       end
+	      
+	  end
+		
     end
 
     def show

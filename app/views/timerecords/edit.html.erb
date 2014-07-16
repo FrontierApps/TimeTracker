@@ -1,16 +1,18 @@
 
+
 <%= form_for :timerecord, url: timerecord_path(@timerecord), method: :patch do |f| %>
   <p>
-   <p style="font-size:3em"><%= params[:job_id]%></p>
+
+   <p style="font-size:3em">
+   <%= @timerecord.jobnumber%>
+   </p>
     <p>
-    <%= f.hidden_field :jobnumber %>
+    <%= f.datetime_local_field :timein %>
     </p>
     <p>
-    <%= f.text_field :timein %>
+    <%= f.datetime_local_field :timeout %>
     </p>
-    <p>
-    <%= f.text_field :timeout %>
-    </p>
+   
     
     <p class="big_drop"> 
     <%= f.collection_select(:task_id, Task.order(:taskname), :id, :taskname, include_blank: false)%>
