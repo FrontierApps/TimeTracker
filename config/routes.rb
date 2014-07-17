@@ -10,9 +10,12 @@ Rails.application.routes.draw do
   # You can have the root of your site routed with "root"
   root 'timerecords#index'
   
+  get 'timerecords/admin' => 'timerecords#admin'
   
   resources :timerecords
+  
   get 'timerecords/timeout/:id' => 'timerecords#timeout'
+
   
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'

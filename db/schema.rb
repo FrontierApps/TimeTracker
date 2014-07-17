@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140711225352) do
+ActiveRecord::Schema.define(version: 20140717151141) do
 
   create_table "tasks", force: true do |t|
     t.string   "taskname"
@@ -43,6 +43,8 @@ ActiveRecord::Schema.define(version: 20140711225352) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.boolean  "admin",                  default: false
+    t.string   "firstname"
+    t.string   "lastname"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree

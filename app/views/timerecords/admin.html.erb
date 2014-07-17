@@ -1,0 +1,64 @@
+<% if current_user.admin? %>
+		<h2></h2>
+<% @tasks.each do |task| %>
+<%= task.taskname %>
+<div class="table-responsive">
+<table class="table table-condensed">
+  <tr>
+    <th class="column_wide">Job Number</th>
+    <th class="column_wide">Name</th>    
+    <th class="column_wide">Time In</th>
+    <th class="column_wide">Time Out</th>
+    <th class="column_wide">Total</th>
+  </tr>
+ 
+<% @timerecord.where(:task_id => task.id).find_each do |t| %>
+<%if (t.timeout == nil)%>
+ <tr>
+    <td><%=link_to t.jobnumber, edit_timerecord_path(t.id) %></td>
+    <td><%=link_to t.user.firstname, edit_timerecord_path(t.id) %></td>
+    <td><%= t.timein.strftime("%I:%M %p") %></td>
+    <td><%= Time.current.strftime("%I:%M %p") %></td>
+     <% @time_in_mins = ((Time.current - t.timein) / 1.minute).ceil %>
+     <% @time_in_hours = ((Time.current - t.timein) / 1.hour).ceil %>
+    <td><%=  @time_in_hours-1 %> hours
+    <%=  @time_in_mins - (@time_in_mins/60).ceil * 60 %> mins</td>
+  </tr>
+<%else%>
+  <tr>
+    <td><%=link_to t.jobnumber, edit_timerecord_path(t.id) %></td>
+    <td><%=link_to t.user.firstname, edit_timerecord_path(t.id) %></td>
+    <td><%= t.timein.strftime("%I:%M %p") %></td>
+    <td><%= t.timeout.strftime("%I:%M %p") %></td>
+     <% @time_in_mins = ((t.timeout - t.timein) / 1.minute).ceil %>
+     <% @time_in_hours = ((t.timeout - t.timein) / 1.hour).ceil %>
+    <td><%=  @time_in_hours-1 %> hours
+    <%=  @time_in_mins - (@time_in_mins/60).ceil * 60 %> mins</td>
+  </tr>
+
+<% end %>
+<% end %>
+
+ 
+</table>
+</div>
+<%end%>
+<table class="table table-condensed">
+<tr>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td>
+    <% @time_in_mins = ((@timetotal) / 1.minute).ceil %>
+    <% @time_in_hours = ((@timetotal) / 1.hour).ceil %>
+    <%=  @time_in_hours -1 %> hours
+  <%=  @time_in_mins - (@time_in_mins/60).ceil * 60 %> mins  </td>
+  </tr>
+</table>
+<%else%>
+<%end%>
+  
+    
+
+	
+
