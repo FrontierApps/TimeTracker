@@ -1,11 +1,8 @@
 class TimerecordsController < ApplicationController
 
- def admin
-  d=DateTime.now
-  d=d.at_beginning_of_week
-     
+ def admin         
   @tasks = Task.all
-  @timerecord = Timerecord.where('updated_at >= ?', d).all
+  @timerecord = Timerecord.thisweek
   @timetotal = 0
   @timerecord.each do |t|
    if (t.timeout == nil)
@@ -15,12 +12,10 @@ class TimerecordsController < ApplicationController
    end
   end
  end
-	def index
-	 d=DateTime.now
-	 d=d.at_beginning_of_week
-     
+
+	def index	    
 	 @tasks = Task.all
-	 @timerecord = Timerecord.where(:user_id => current_user.id).where('updated_at >= ?', d).all
+	 @timerecord = Timerecord.currentuser(current_user.id).timethisweek
 	 @timetotal = 0
 	 @timerecord.each do |t|
  	 if (t.timeout == nil)
@@ -30,10 +25,11 @@ class TimerecordsController < ApplicationController
  	 end
 	 end
  end
+
 	def new				
-		 time = Timerecord.where(:user_id => current_user.id).where(:timeout => nil).exists?
+		 time = Timerecord.currentuser(current_user.id).where(:timeout => nil).exists?
 	  if time
-		@exist_timerecord = Timerecord.where(:user_id => current_user.id).where(:timeout => nil).first
+		@exist_timerecord = Timerecord.currentuser(current_user.id).where(:timeout => nil).first
      	if (@exist_timerecord.jobnumber == params[:job_id])
      	redirect_to :action => 'timeout', :id => @exist_timerecord.id		
         else

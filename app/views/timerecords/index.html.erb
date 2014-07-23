@@ -1,6 +1,4 @@
-<% if current_user.admin? %>
-		<h1>your an administrator</h1>
-	<%else%>
+
 		<h1>Here are your hours for the week</h1>
 		<h2></h2>
 <% @tasks.each do |task| %>
@@ -55,7 +53,6 @@
   <%=  @time_in_mins - (@time_in_mins/60).ceil * 60 %> mins  </td>
   </tr>
 </table>
-<%end%>
   
     
 
