@@ -27,9 +27,9 @@ class TimerecordsController < ApplicationController
  end
 
 	def new				
-		 time = Timerecord.currentuser(current_user.id).where(:timeout => nil).exists?
+		 time = Timerecord.currentuser(current_user.id).notimeout.exists?
 	  if time
-		@exist_timerecord = Timerecord.currentuser(current_user.id).where(:timeout => nil).first
+		@exist_timerecord = Timerecord.currentuser(current_user.id).notimeout.first
      	if (@exist_timerecord.jobnumber == params[:job_id])
      	redirect_to :action => 'timeout', :id => @exist_timerecord.id		
         else
