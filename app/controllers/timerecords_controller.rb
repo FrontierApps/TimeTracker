@@ -33,8 +33,8 @@ class TimerecordsController < ApplicationController
      	if (@exist_timerecord.jobnumber == params[:job_id])
      	redirect_to :action => 'timeout', :id => @exist_timerecord.id		
         else
-         flash[:notice] = "Go to your home"
          @old_timerecord = Timerecord.find_by(id: @exist_timerecord.id)
+         flash[:notice] = "You were just timed out of job number "+ @exist_timerecord.jobnumber
 	     @old_timerecord.update(timeout: Time.current)
          @timerecord = Timerecord.new	    
 	     @timerecord.jobnumber = params[:job_id]
