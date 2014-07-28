@@ -1,6 +1,10 @@
 Rails.application.routes.draw do
 
+  
+
   devise_for :users
+
+  
 
   get 'welcome/index'
 
@@ -11,6 +15,7 @@ Rails.application.routes.draw do
   root 'timerecords#index'
   
   get 'timerecords/admin' => 'timerecords#admin'
+  get 'timerecords/employee/:id' => 'timerecords#employee'
   
   resources :timerecords
   

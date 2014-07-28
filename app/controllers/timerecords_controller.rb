@@ -46,17 +46,17 @@ class TimerecordsController < ApplicationController
 	end
  
 	def create
-  @timerecord = Timerecord.new(timerecord_params)
-  @timerecord.user_id = current_user.id
-  @timerecord.timein = Time.current
-  @timerecord.save
+	  @timerecord = Timerecord.new(timerecord_params)
+	  @timerecord.user_id = current_user.id
+	  @timerecord.timein = Time.current
+	  @timerecord.save
 
-  if @timerecord.save
-  redirect_to @timerecord
+	  if @timerecord.save
+	  redirect_to @timerecord
 
-  else
-  render 'new'
-  end
+	  else
+	  render 'new'
+	  end
 	end
 
 	def timeout
@@ -91,12 +91,27 @@ class TimerecordsController < ApplicationController
 	  end
 		
     end
+ def employee
+  @tasks = Task.all
+  @timerecord = Timerecord.thisweek.selecteduser(params[:id])
+  @username = Timerecord.selecteduser(params[:id]).first
+  @tasks = Task.all
+  @timetotal = 0
+  @timerecord.each do |t|
+   if (t.timeout == nil)
+    @timetotal = @timetotal + (Time.current - t.timein)
+   else 
+    @timetotal = @timetotal + (t.timeout - t.timein)
+   end
+  end
+ end
 
-    def show
-       @timerecord = Timerecord.find(params[:id])       
-       @task = Task.find(@timerecord.task_id)  
+ def show
+    @timerecord = Timerecord.find(params[:id])       
+    @task = Task.find(@timerecord.task_id)  
 
-    end	
+ end	
+
 	private
 		def timerecord_params
 		params.require(:timerecord).permit(:jobnumber, :user_id, :timein, :timeout, :task_id)
