@@ -5,6 +5,8 @@
 <div class="table-responsive">
 <table class="table table-condensed">
   <tr>
+    <th class="column_wide">Customer Name</th>
+    <th class="column_wide">Project Name</th>
     <th class="column_wide">Job Number</th>
     <th class="column_wide">Name</th>    
     <th class="column_wide">Time In</th>
@@ -14,8 +16,22 @@
  
 <% @timerecord.where(:task_id => task.id).find_each do |t| %>
 
+<%@jobname = Jobnumbers.find_by jobnumber: t.jobnumber%>
+<%if (@jobname == nil)
+
+
+else
+@customername = Contacts.find_by! id: @jobname.contacts_id
+end%>
+
+
+
+
 
  <tr>
+  
+    <td><%=@customername.CompanyName%></td>
+    <td><%=@jobname.projectName%></td>
     <td><%=link_to t.jobnumber, edit_timerecord_path(t.id) %></td>
     <td><%=link_to t.user.firstname, edit_timerecord_path(t.id) %></td>
     <td><%= t.timein.strftime("%I:%M %p") %></td>
@@ -40,6 +56,8 @@
 <%end%>
 <table class="table table-condensed">
 <tr>
+    <td></td>
+    <td></td>
     <td></td>
     <td></td>
     <td></td>

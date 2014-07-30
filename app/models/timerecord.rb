@@ -9,4 +9,6 @@ class Timerecord < ActiveRecord::Base
 	scope :currentuser, ->(user) {where('user_id = ?', user )} 
 	scope :selecteduser, ->(user) {where('user_id = ?', user )} 
 	
+	
+	
 end
