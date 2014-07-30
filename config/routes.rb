@@ -21,6 +21,7 @@ Rails.application.routes.draw do
   
   get 'timerecords/timeout/:id' => 'timerecords#timeout'
 
+  resources :contacts
   
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
