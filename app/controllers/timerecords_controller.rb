@@ -2,15 +2,9 @@ class TimerecordsController < ApplicationController
 
  def admin         
   @tasks = Task.all
-  @timerecord = Timerecord.thisweek
-  @timetotal = 0
-  @timerecord.each do |t|
-   if (t.timeout == nil)
-    @timetotal = @timetotal + (Time.current - t.timein)
-   else 
-    @timetotal = @timetotal + (t.timeout - t.timein)
-   end
-  end
+  @users = User.all
+  
+
  end
 
 	def index	    
@@ -94,7 +88,6 @@ class TimerecordsController < ApplicationController
  def employee
   @tasks = Task.all
   @timerecord = Timerecord.thisweek.selecteduser(params[:id])
-  @username = Timerecord.selecteduser(params[:id]).first
   @tasks = Task.all
   @timetotal = 0
   @timerecord.each do |t|

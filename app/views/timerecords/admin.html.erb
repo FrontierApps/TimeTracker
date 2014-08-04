@@ -1,78 +1,9 @@
 <% if current_user.admin? %>
-		<h2></h2>
-<% @tasks.each do |task| %>
-<%= task.taskname %>
-<div class="table-responsive">
-<table class="table table-condensed">
-  <tr>
-    <th class="column_wide">Customer Name</th>
-    <th class="column_wide">Project Name</th>
-    <th class="column_wide">Job Number</th>
-    <th class="column_wide">Name</th>    
-    <th class="column_wide">Time In</th>
-    <th class="column_wide">Time Out</th>
-    <th class="column_wide">Total</th>
-  </tr>
+  <%= form_for :timerecord, url: timerecords_path do |f| %>
+  <%= f.collection_select(:task_id, Task.order(:taskname), :id, :taskname, include_blank: false)%>
+  <%= f.collection_select(:user_id, User.order(:firstname), :id, :firstname, include_blank: false)%>
 
- 
-<% @timerecord.where(:task_id => task.id).find_each do |t| %>
-  <tr>
-<%@jobname = Jobnumbers.find_by JobNumber: t.jobnumber%>
-
-<%if (@jobname == nil)%>
-<td></td>
-<td></td>
-
-
-<%else%>
-<%@customername = Contacts.find_by! id: @jobname.contacts_id%>
-<td><%=@customername.CompanyName%></td>
-<td><%=@jobname.projectName%></td>
-<%end%>
-
-
-
-
-
-
-  
-    
-    <td><%=link_to t.jobnumber, edit_timerecord_path(t.id) %></td>
-    <td><%=link_to t.user.firstname, edit_timerecord_path(t.id) %></td>
-    <td><%= t.timein.strftime("%I:%M %p") %></td>
-    <%if (t.timeout == nil)%>
-    <td style="color:red"><%= Time.current.strftime("%I:%M %p") %></td>
-    <%@timeout = Time.current%>
-    <%else%>
-    <td><%= t.timeout.strftime("%I:%M %p") %></td>
-    <%@timeout = t.timeout%>
-    <%end%>
-     <% @time_in_mins = ((@timeout - t.timein) / 1.minute).ceil %>
-     <% @time_in_hours = ((@timeout - t.timein) / 1.hour).ceil %>
-    <td><%=  @time_in_hours-1 %> hours
-    <%=  @time_in_mins - (@time_in_mins/60).ceil * 60 %> mins</td>
-  </tr>
-
-<% end %>
-
- 
-</table>
-</div>
-<%end%>
-<table class="table table-condensed">
-<tr>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td>
-    <% @time_in_mins = ((@timetotal) / 1.minute).ceil %>
-    <% @time_in_hours = ((@timetotal) / 1.hour).ceil %>
-    <%=  @time_in_hours -1 %> hours
-  <%=  @time_in_mins - (@time_in_mins/60).ceil * 60 %> mins  </td>
-  </tr>
-</table>
+  <%end%>
 <%end%>
   
     
