@@ -1,7 +1,13 @@
 <% if current_user.admin? %>
-  <%= form_for :timerecord, url: timerecords_path do |f| %>
-  <%= f.collection_select(:task_id, Task.order(:taskname), :id, :taskname, include_blank: false)%>
-  <%= f.collection_select(:user_id, User.order(:firstname), :id, :firstname, include_blank: false)%>
+<%d=Date.today
+d=d.at_beginning_of_week
+  %>
+  <%=d%>
+  <% @tasks.each do |task| %>
+    
+  <%end%>
+  <% @users.each do |user| %>
+  <%=link_to user.firstname, :action => "employee", :id => user.id%>
 
   <%end%>
 <%end%>

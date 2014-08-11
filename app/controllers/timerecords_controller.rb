@@ -1,10 +1,11 @@
 class TimerecordsController < ApplicationController
-
+skip_before_filter :verify_authenticity_token, :only => ['admin']
  def admin         
   @tasks = Task.all
   @users = User.all
+  @jobnumber = Jobnumbers.all
+  @timrecord = Timerecord.all
   
-
  end
 
 	def index	    

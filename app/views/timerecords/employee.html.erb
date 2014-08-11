@@ -1,12 +1,13 @@
 <% if current_user.admin? %>
-<% user = @timerecord.first %>
-<h1><%= user.user.firstname%></h1>
+<% @user = @timerecord.first %>
+<h1><%= @user.user.firstname%></h1>
 <table>
   <tr>
     <th class="column_wide">Job Number</th>
     <th class="column_wide">Task</th>       
     <th class="column_wide">Job Number</th>
     <th class="column_wide">Task</th>       
+    <th class="column_wide">Date</th>       
     <th class="column_wide">Time In</th>
     <th class="column_wide">Time Out</th>
     <th class="column_wide">Total</th>
@@ -28,6 +29,7 @@
     <%end%>
     <td><%=link_to t.jobnumber, edit_timerecord_path(t.id) %></td>
     <td><%=t.task.taskname %></td>
+    <td><%= t.timein.strftime("%m-%d") %></td>
     <td><%= t.timein.strftime("%I:%M %p") %></td>
     <%if (t.timeout == nil)%>
     <td style="color:red"><%= Time.current.strftime("%I:%M %p") %></td>
@@ -43,13 +45,11 @@
   </tr>
 
 <% end %>
-
- 
-</table>
-</div>
-<%end%>
-<table class="table table-condensed">
 <tr>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
     <td></td>
     <td></td>
     <td></td>
@@ -59,7 +59,13 @@
     <%=  @time_in_hours -1 %> hours
   <%=  @time_in_mins - (@time_in_mins/60).ceil * 60 %> mins  </td>
   </tr>
+ 
 </table>
+<%= link_to 'Back', timerecords_admin_path %>
+</div>
+
+
+<%end%>
 
   
     
