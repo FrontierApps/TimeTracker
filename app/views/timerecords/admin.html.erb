@@ -1,6 +1,6 @@
 <% if current_user.admin? %>
 <%d=Date.today
-d=d.at_beginning_of_week
+d=d.at_beginning_of_week-1.day
   %>
   <%=d%>
   <% @tasks.each do |task| %>

@@ -1,5 +1,11 @@
 <% if current_user.admin? %>
 <% @user = @timerecord.first %>
+<% if @user == nil%>
+ <h2> There are no records for this time period </h2>
+ <%= link_to 'Back', timerecords_admin_path %>
+</div>
+
+<%else%>
 <h1><%= @user.user.firstname%></h1>
 <table>
   <tr>
@@ -64,6 +70,7 @@
 <%= link_to 'Back', timerecords_admin_path %>
 </div>
 
+<%end%>
 
 <%end%>
 
