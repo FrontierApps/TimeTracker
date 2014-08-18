@@ -6,7 +6,9 @@
 </div>
 
 <%else%>
+
 <h1><%= @user.user.firstname%></h1>
+<h1><%= @startdate%></h1>
 <table>
   <tr>
     <th class="column_wide">Job Number</th>
@@ -67,6 +69,14 @@
   </tr>
  
 </table>
+
+<%= form_tag({}, {:method => :get}) do %>
+
+<%=date_field_tag 'startdate', '01/01/2014'%>
+<%=date_field_tag 'enddate', '01/01/2014'%>
+<button class="btn" type="submit"><i class="icon-search"></i></button>
+<% end %>
+  <%= yield %>
 <%= link_to 'Back', timerecords_admin_path %>
 </div>
 

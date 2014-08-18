@@ -87,7 +87,14 @@ skip_before_filter :verify_authenticity_token, :only => ['admin']
 		
     end
  def employee
-  @tasks = Task.all
+
+  if (params[:startdate] == nil)
+  @startdate = Timerecord.timethisweek
+  @enddate = Timerecord.timethisweek + 7.day
+  else
+  @startdate = params[:startdate]
+  @enddate = params[:enddate]
+  end
   @timerecord = Timerecord.selecteduser(params[:id]).timethisweek
   @tasks = Task.all
   @timetotal = 0
