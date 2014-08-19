@@ -2,8 +2,8 @@
 <% @user = @timerecord.first %>
 <% if @user == nil%>
  <h2> There are no records for this time period </h2>
- <%= link_to 'Back', timerecords_admin_path %>
-</div>
+
+
 
 <%else%>
 
@@ -69,6 +69,12 @@
  
 </table>
 
+
+
+
+
+<%end%>
+
 <%= form_tag({}, {:method => :get}) do %>
 
 <%=date_field_tag 'startdate', '01/01/2014'%>
@@ -76,10 +82,8 @@
 <button class="btn" type="submit"><i class="icon-search"></i></button>
 <% end %>
   <%= yield %>
-<%= link_to 'Back', timerecords_admin_path %>
-</div>
+  <%= link_to 'Back', timerecords_admin_path %>
 
-<%end%>
 
 <%end%>
 
