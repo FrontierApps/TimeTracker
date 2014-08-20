@@ -7,6 +7,7 @@ class Timerecord < ActiveRecord::Base
 	scope :notimeout, -> {where('timeout IS ?', nil)} 
 	scope :timethisweek, -> {where('timein > ?', d).all} 
 	scope :weekstart, -> (weekstart){where('timein >= ?', weekstart).all} 
+	scope :dateis, -> (date){where('timein = ?', date).all} 
 	scope :weekend, -> (weekend){where('timein <= ?', weekend).all} 
 	scope :currentuser, ->(user) {where('user_id = ?', user )} 
 	scope :selecteduser, ->(user) {where('user_id = ?', user )} 

@@ -96,8 +96,8 @@ skip_before_filter :verify_authenticity_token, :only => ['admin']
   @startdate = params[:startdate]
   @enddate = params[:enddate]
   end
+  
   @timerecord = Timerecord.selecteduser(params[:id]).weekstart(@startdate).weekend(@enddate)
-  @tasks = Task.all
   @timetotal = 0
   @timerecord.each do |t|
    if (t.timeout == nil)

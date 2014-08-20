@@ -2,16 +2,19 @@
 <% @user = @timerecord.first %>
 <% if @user == nil%>
  <h2> There are no records for this time period </h2>
-
-
-
 <%else%>
-
 <h1><%= @user.user.firstname%></h1>
-<table>
+<div class="table-responsive">
+<%@startdate.upto(@enddate) do |date|%>
+   <h1><%=date%></h1>
+   <% date=date.to_date%>
+   <% timestart=date.beginning_of_day%>
+   <% timeend=date.end_of_day%>
+
+<table class="table table-hover">
   <tr>
-    <th class="column_wide">Job Number</th>
-    <th class="column_wide">Task</th>       
+    <th class="column_wide">CompanyName</th>
+    <th class="column_wide">Job Name</th>       
     <th class="column_wide">Job Number</th>
     <th class="column_wide">Task</th>       
     <th class="column_wide">Date</th>       
@@ -19,16 +22,12 @@
     <th class="column_wide">Time Out</th>
     <th class="column_wide">Total</th>
   </tr>
- 
-<% @timerecord.each do |t| %>
-
+<% Timerecord.selecteduser(params[:id]).weekstart(timestart).weekend(timeend).find_each do |t| %>
 <%@jobname = Jobnumbers.find_by JobNumber: t.jobnumber%>
  <tr>
     <%if (@jobname == nil)%>
     <td></td>
     <td></td>
-
-
     <%else%>
     <%@customername = Contacts.find_by! id: @jobname.contacts_id%>
     <td><%=@customername.CompanyName%></td>
@@ -39,7 +38,7 @@
     <td><%= t.timein.strftime("%m-%d") %></td>
     <td><%= t.timein.strftime("%I:%M %p") %></td>
     <%if (t.timeout == nil)%>
-    <td style="color:red"><%= Time.current.strftime("%I:%M %p") %></td>
+    <td class="danger"><%= Time.current.strftime("%I:%M %p") %></td>
     <%@timeout = Time.current%>
     <%else%>
     <td><%= t.timeout.strftime("%I:%M %p") %></td>
@@ -50,8 +49,8 @@
     <td><%=  @time_in_hours-1 %> hours
     <%=  @time_in_mins - (@time_in_mins/60).ceil * 60 %> mins</td>
   </tr>
-
 <% end %>
+<%end%>
 <tr>
     <td></td>
     <td></td>
@@ -70,9 +69,7 @@
 </table>
 
 
-
-
-
+</div>
 <%end%>
 
 <%= form_tag({}, {:method => :get}) do %>
@@ -81,7 +78,7 @@
 <%=date_field_tag 'enddate', '01/01/2014'%>
 <button class="btn" type="submit"><i class="icon-search"></i></button>
 <% end %>
-  <%= yield %>
+  
   <%= link_to 'Back', timerecords_admin_path %>
 
 
