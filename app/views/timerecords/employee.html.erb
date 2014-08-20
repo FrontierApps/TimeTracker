@@ -3,13 +3,16 @@
 <% if @user == nil%>
  <h2> There are no records for this time period </h2>
 <%else%>
+<%= form_tag({}, {:method => :get}) do %>
+
+<%=date_field_tag 'startdate', '01/01/2014'%>
+<%=date_field_tag 'enddate', '01/01/2014'%>
+<button class="btn" type="submit"><i class="icon-search"></i></button>
+<% end %>
 <h1><%= @user.user.firstname%></h1>
+
 <div class="table-responsive">
-<%@startdate.upto(@enddate) do |date|%>
-   <h1><%=date%></h1>
-   <% date=date.to_date%>
-   <% timestart=date.beginning_of_day%>
-   <% timeend=date.end_of_day%>
+
 
 <table class="table table-hover">
   <tr>
@@ -22,9 +25,14 @@
     <th class="column_wide">Time Out</th>
     <th class="column_wide">Total</th>
   </tr>
-<% Timerecord.selecteduser(params[:id]).weekstart(timestart).weekend(timeend).find_each do |t| %>
-<%@jobname = Jobnumbers.find_by JobNumber: t.jobnumber%>
  <tr>
+ <%@startdate.upto(@enddate) do |date|%>
+   
+   <% date=date.to_date%>
+   <% timestart=date.beginning_of_day%>
+   <% timeend=date.end_of_day%>
+   <% Timerecord.selecteduser(params[:id]).weekstart(timestart).weekend(timeend).find_each do |t| %>
+<%@jobname = Jobnumbers.find_by JobNumber: t.jobnumber%>
     <%if (@jobname == nil)%>
     <td></td>
     <td></td>
@@ -72,12 +80,7 @@
 </div>
 <%end%>
 
-<%= form_tag({}, {:method => :get}) do %>
 
-<%=date_field_tag 'startdate', '01/01/2014'%>
-<%=date_field_tag 'enddate', '01/01/2014'%>
-<button class="btn" type="submit"><i class="icon-search"></i></button>
-<% end %>
   
   <%= link_to 'Back', timerecords_admin_path %>
 
