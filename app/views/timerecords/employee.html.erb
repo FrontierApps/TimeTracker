@@ -35,7 +35,8 @@
     <td><%=@customername.CompanyName%></td>
     <td><%=@jobname.projectName%></td>
     <%end%>
-    <td><%=link_to t.jobnumber, :controller => "timerecords", :action => "jobreport", :id => t.jobnumber %></td>
+    <td><%=link_to t.jobnumber, :controller => "timerecords", :action => "jobreport", :id => t.jobnumber %> 
+    <%= link_to '', edit_timerecord_path(t.id), :class => 'glyphicon glyphicon-pencil' %></td> 
     <td><%=t.task.taskname %></td>
     <td><%= t.timein.strftime("%m-%d") %></td>
     <td><%= t.timein.strftime("%I:%M %p") %></td>

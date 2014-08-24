@@ -5,11 +5,12 @@
     <%else%>
     <%@customername = Contacts.find_by! id: @jobname.contacts_id%>
     <h1><%=@customername.CompanyName%></h1>
-    <h2><%=@jobname.projectName%></h2>
+    <h2><%=@jobname.projectName%> <%=@jobnumber%></h2>
 <%end%>
 <div class="table-responsive">
 <table class="table table-hover">
   <tr>
+    <th class="column_wide"></th>
     <th class="column_wide">Employee</th>
     <th class="column_wide">Task</th>
     <th class="column_wide">Time In</th>
@@ -25,8 +26,9 @@
      <% @time_in_hours = ((t.timeout - t.timein) / 1.hour).ceil %>
 <% end %>
  <tr>
+    <td><%= link_to 'edit', edit_timerecord_path(t.id), :class => 'glyphicon glyphicon-pencil' %></td>
     <td><%=t.user.firstname%></td>
-    <td><%=t.task.taskname%></td>
+    <td><%=t.task.taskname %> </td>
     <td><%= t.timein.strftime("%I:%M %p") %></td>
     <td><%= Time.current.strftime("%I:%M %p") %></td>
     <td><%=  @time_in_hours-1 %> hours
@@ -40,6 +42,7 @@
 
 
 <tr>
+    <td></td>
     <td></td>
     <td></td>
     <td></td>
