@@ -1,17 +1,8 @@
-<% if current_user.admin? %>
-<%d=Date.today
-d=d.at_beginning_of_week-1.day
-  %>
-  <%=d%>
-  <% @tasks.each do |task| %>
-    
-  <%end%>
-  <% @users.each do |user| %>
-  <%=link_to user.firstname, :action => "employee", :id => user.id%>
 
-  <%end%>
+<% if current_user.admin? %>
+<%= render 'sidemenu' %>
 <%end%>
-  
+
     
 
 	

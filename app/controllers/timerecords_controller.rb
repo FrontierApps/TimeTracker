@@ -1,8 +1,9 @@
 class TimerecordsController < ApplicationController
 skip_before_filter :verify_authenticity_token, :only => ['admin']
- def admin         
+
+ def admin    
   @tasks = Task.all
-  @users = User.all
+ @users = User.all     
   @jobnumber = Jobnumbers.all
   @timrecord = Timerecord.all
   
@@ -87,17 +88,40 @@ skip_before_filter :verify_authenticity_token, :only => ['admin']
 		
     end
  def employee
-
+@tasks = Task.all
+@users = User.all
   if (params[:startdate] == nil)
   d=Date.today
   @startdate = d.at_beginning_of_week-1.day
   @enddate = d+7.day
   else
-  @startdate = params[:startdate]
-  @enddate = params[:enddate]
+  @startdate=params[:startdate].to_date
+  @enddate=params[:enddate].to_date
   end
   
   @timerecord = Timerecord.selecteduser(params[:id]).weekstart(@startdate).weekend(@enddate)
+  @timetotal = 0
+  @timerecord.each do |t|
+   if (t.timeout == nil)
+    @timetotal = @timetotal + (Time.current - t.timein)
+   else 
+    @timetotal = @timetotal + (t.timeout - t.timein)
+   end
+  end
+ end
+ def task
+ end
+ def jobreport
+  @tasks = Task.all
+  @users = User.all
+  if (params[:search] == nil)
+  @timerecord = Timerecord.thisjob(params[:id])
+  @jobnumber = params[:id]
+  else
+  @timerecord = Timerecord.thisjob(params[:search])
+  @jobnumber = params[:search]
+  end
+
   @timetotal = 0
   @timerecord.each do |t|
    if (t.timeout == nil)
