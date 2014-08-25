@@ -17,20 +17,22 @@
     <th class="column_wide">Time Out</th>
     <th class="column_wide">Total</th>
   </tr>
-<% @timerecord.find_each do |t| %>
+<% @timerecord.order(task_id: :asc).each do |t| %>
 <%if (t.timeout == nil)%>
      <% @time_in_mins = ((Time.current - t.timein) / 1.minute).ceil %>
      <% @time_in_hours = ((Time.current - t.timein) / 1.hour).ceil %>  
+     <% @timeout = Time.current %>
 <%else%>
      <% @time_in_mins = ((t.timeout - t.timein) / 1.minute).ceil %>
      <% @time_in_hours = ((t.timeout - t.timein) / 1.hour).ceil %>
+     <% @timeout = t.timeout %>
 <% end %>
  <tr>
     <td><%= link_to 'edit', edit_timerecord_path(t.id), :class => 'glyphicon glyphicon-pencil' %></td>
-    <td><%=t.user.firstname%></td>
+    <td><%=link_to t.user.firstname, :action => "employee", :id => t.user.id%></td>
     <td><%=t.task.taskname %> </td>
     <td><%= t.timein.strftime("%I:%M %p") %></td>
-    <td><%= Time.current.strftime("%I:%M %p") %></td>
+    <td><%= @timeout.strftime("%I:%M %p") %></td>
     <td><%=  @time_in_hours-1 %> hours
     <%=  @time_in_mins - (@time_in_mins/60).ceil * 60 %> mins</td>
 </tr>

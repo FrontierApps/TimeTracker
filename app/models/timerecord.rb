@@ -14,5 +14,4 @@ class Timerecord < ActiveRecord::Base
 	scope :thisjob, ->(number) {where('jobnumber = ?', number )} 
 	
 	
-	
 end
