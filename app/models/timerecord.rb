@@ -12,6 +12,7 @@ class Timerecord < ActiveRecord::Base
 	scope :currentuser, ->(user) {where('user_id = ?', user )} 
 	scope :selecteduser, ->(user) {where('user_id = ?', user )} 
 	scope :thisjob, ->(number) {where('jobnumber = ?', number )} 
+	scope :tasks_all, ->(taskid){where('task_id = ?', taskid)}
 	
 	
 end

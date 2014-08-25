@@ -115,7 +115,25 @@ skip_before_filter :verify_authenticity_token, :only => ['admin']
   end
  end
  def task
-
+   if (params[:startdate] == nil)
+   d=Date.today
+   @startdate = d.at_beginning_of_week-1.day
+   @enddate = d+7.day
+   else
+   @startdate=params[:startdate].to_date
+   @enddate=params[:enddate].to_date
+   end
+  @task_all=Timerecord.tasks_all(params[:id]).weekstart(@startdate).weekend(@enddate)
+  @tasks = Task.all
+  @users = User.all
+  @timetotal = 0
+  @task_all.each do |t|
+   if (t.timeout == nil)
+    @timetotal = @timetotal + (Time.current - t.timein)
+   else 
+    @timetotal = @timetotal + (t.timeout - t.timein)
+   end
+  end
  end
 
  

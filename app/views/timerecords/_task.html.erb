@@ -1,0 +1,21 @@
+ 
+
+<%if (task.timeout == nil)%>
+     <% @time_in_mins = ((Time.current - task.timein) / 1.minute).ceil %>
+     <% @time_in_hours = ((Time.current - task.timein) / 1.hour).ceil %>  
+     <% @timeout = Time.current %>
+<%else%>
+     <% @time_in_mins = ((task.timeout - task.timein) / 1.minute).ceil %>
+     <% @time_in_hours = ((task.timeout - task.timein) / 1.hour).ceil %>
+     <% @timeout = task.timeout %>
+<% end %>
+ <tr>
+    <td><%= link_to 'edit', edit_timerecord_path(task.id), :class => 'glyphicon glyphicon-pencil' %></td>
+    <td><%=link_to task.user.firstname, :action => "employee", :id => task.user.id%></td>
+    <td><%=task.task.taskname %> </td>
+    <td><%= task.timein.strftime("%I:%M %p") %></td>
+    <td><%= @timeout.strftime("%I:%M %p") %></td>
+    <td><%=  @time_in_hours-1 %> hours
+    <%=  @time_in_mins - (@time_in_mins/60).ceil * 60 %> mins</td>
+</tr>
+

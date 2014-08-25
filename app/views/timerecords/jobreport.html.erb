@@ -30,7 +30,7 @@
  <tr>
     <td><%= link_to 'edit', edit_timerecord_path(t.id), :class => 'glyphicon glyphicon-pencil' %></td>
     <td><%=link_to t.user.firstname, :action => "employee", :id => t.user.id%></td>
-    <td><%=t.task.taskname %> </td>
+    <td><%=link_to t.task.taskname, :action => "task", :id => t.task.id%></td>
     <td><%= t.timein.strftime("%I:%M %p") %></td>
     <td><%= @timeout.strftime("%I:%M %p") %></td>
     <td><%=  @time_in_hours-1 %> hours
