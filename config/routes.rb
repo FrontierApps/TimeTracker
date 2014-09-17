@@ -12,7 +12,7 @@ Rails.application.routes.draw do
   # See how all your routes lay out with "rake routes".
 
   # You can have the root of your site routed with "root"
-  root 'timerecords#index'
+  root 'timerecords#admin'
   
   get 'timerecords/admin' => 'timerecords#admin'
   get 'timerecords/employee/:id' => 'timerecords#employee'
