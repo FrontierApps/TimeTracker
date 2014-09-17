@@ -1,16 +1,22 @@
 class TimerecordsController < ApplicationController
 skip_before_filter :verify_authenticity_token, :only => ['admin']
-
- def admin    
-  @tasks = Task.all
- @users = User.all     
+  $tasks = Task.all
+  $users = User.all 
+ def admin         
   @jobnumber = Jobnumbers.all
   @timrecord = Timerecord.all
   
  end
 
-	def index	    
-	 @tasks = Task.all
+	def index
+  if (params[:startdate] == nil)
+   d=Date.today
+   @startdate = d.at_beginning_of_week-1.day
+   @enddate = d.at_beginning_of_week+5.day
+   else
+   @startdate=params[:startdate].to_date
+   @enddate=params[:enddate].to_date
+   end
 	 @timerecord = Timerecord.currentuser(current_user.id).timethisweek
 	 @timetotal = 0
 	 @timerecord.each do |t|
@@ -73,40 +79,37 @@ skip_before_filter :verify_authenticity_token, :only => ['admin']
       @task = Task.find(@timerecord.task_id)
      
     end
-    def update
-      @timerecord = Timerecord.find(params[:id])
-      if (@timerecord.timeout == nil)
- 	     @timerecord.timeout = Time.current
-       if @timerecord.update(timerecord1_params)
-       redirect_to @timerecord
-       else
-       render 'edit'
-       end
- 	  else
-      if @timerecord.update(timerecord_params)
-       redirect_to @timerecord
-       else
-       render 'edit'
-       end
-	      
-	  end
-		
+ def update
+  @timerecord = Timerecord.find(params[:id])
+   if (@timerecord.timeout == nil)
+    @timerecord.timeout = Time.current
+    if @timerecord.update(timerecord1_params)
+    redirect_to @timerecord
+    else
+    render 'edit'
     end
- def employee
-@tasks = Task.all
-@users = User.all
-  if (params[:startdate] == nil)
-  d=Date.today
-  @startdate = d.at_beginning_of_week-1.day
-  @enddate = d+7.day
-  else
-  @startdate=params[:startdate].to_date
-  @enddate=params[:enddate].to_date
+   else
+    if @timerecord.update(timerecord_params)
+    redirect_to @timerecord
+    else
+    render 'edit'
+   end
   end
+		
+ end
+ def employee
+   if (params[:startdate] == nil)
+   d=Date.today
+   @startdate = d.at_beginning_of_week-1.day
+   @enddate = d.at_beginning_of_week+5.day
+   else
+   @startdate=params[:startdate].to_date
+   @enddate=params[:enddate].to_date
+   end
   
-  @timerecord = Timerecord.selecteduser(params[:id]).weekstart(@startdate).weekend(@enddate)
-  @timetotal = 0
-  @timerecord.each do |t|
+   @timerecord = Timerecord.selecteduser(params[:id]).weekstart(@startdate).weekend(@enddate)
+   @timetotal = 0
+   @timerecord.each do |t|
    if (t.timeout == nil)
     @timetotal = @timetotal + (Time.current - t.timein)
    else 
@@ -118,14 +121,12 @@ skip_before_filter :verify_authenticity_token, :only => ['admin']
    if (params[:startdate] == nil)
    d=Date.today
    @startdate = d.at_beginning_of_week-1.day
-   @enddate = d+7.day
+   @enddate = d.at_beginning_of_week+5.day
    else
    @startdate=params[:startdate].to_date
    @enddate=params[:enddate].to_date
    end
   @task_all=Timerecord.tasks_all(params[:id]).weekstart(@startdate).weekend(@enddate)
-  @tasks = Task.all
-  @users = User.all
   @timetotal = 0
   @task_all.each do |t|
    if (t.timeout == nil)
@@ -138,8 +139,6 @@ skip_before_filter :verify_authenticity_token, :only => ['admin']
 
  
  def jobreport
-  @tasks = Task.all
-  @users = User.all
   if (params[:search] == nil)
   @timerecord = Timerecord.thisjob(params[:id])
   @jobnumber = params[:id]

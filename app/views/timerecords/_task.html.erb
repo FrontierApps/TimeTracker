@@ -10,7 +10,7 @@
      <% @timeout = task.timeout %>
 <% end %>
  <tr>
-    <td><%= link_to 'edit', edit_timerecord_path(task.id), :class => 'glyphicon glyphicon-pencil' %></td>
+    <td><%= link_to '', edit_timerecord_path(task.id), :class => 'glyphicon glyphicon-pencil' %></td>
     <td><%=link_to task.user.firstname, :action => "employee", :id => task.user.id%></td>
     <td><%=task.task.taskname %> </td>
     <td><%= task.timein.strftime("%I:%M %p") %></td>
