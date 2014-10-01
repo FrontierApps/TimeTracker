@@ -31,7 +31,7 @@
    <% Timerecord.selecteduser(params[:id]).weekstart(timestart).weekend(timeend).find_each do |t| %>
 <%@jobname = Jobnumbers.find_by JobNumber: t.jobnumber%>
     <%if (@jobname == nil)%>
-    <td></td>
+    <td><%= link_to '', edit_timerecord_path(t.id), :class => 'glyphicon glyphicon-pencil' %></td>
     <td></td>
     <td></td>
     <%else%>
