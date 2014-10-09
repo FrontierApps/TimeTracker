@@ -24,17 +24,25 @@
 </p>
 <% end %>
 <p>
+
+    
+    
+
+
   <% if @timerecord.timeout == nil %>
+
   <strong>current time on project:</strong>
-  <% @time_in_mins = ((Time.current - @timerecord.timein) / 1.minute).ceil %>
-  <% @time_in_hours = ((Time.current - @timerecord.timein) / 1.hour).ceil %>
-  <%=  @time_in_hours -1 %> hours
-  <%=  @time_in_mins - (@time_in_mins/60).ceil * 60 %> mins
+  <% @time_diff_components = Time.diff(@timerecord.timein, Time.current, '%H %N') %>
+  <%= @time_diff_components[:diff] %>
+
+  
+
   <% else %>
+
   <strong>final time on project:</strong>
-   <% @time_in_mins = ((@timerecord.timeout - @timerecord.timein) / 1.minute).ceil %>
-  <% @time_in_hours = ((@timerecord.timeout - @timerecord.timein) / 1.hour).ceil %>
-  <%=  @time_in_hours -1 %> hours
-  <%=  @time_in_mins - (@time_in_mins/60).ceil * 60 %> mins
+ <% @time_diff_components = Time.diff(@timerecord.timein, @timerecord.timeout, '%H %N') %>
+  <%= @time_diff_components[:diff] %>
+  
+
   <% end %>
 </p>
