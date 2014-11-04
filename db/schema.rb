@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140730012309) do
+ActiveRecord::Schema.define(version: 20141104141852) do
 
   create_table "contacts", force: true do |t|
     t.string   "FirstName",         limit: 50
@@ -78,6 +78,7 @@ ActiveRecord::Schema.define(version: 20140730012309) do
     t.datetime "timeout"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.float    "total"
   end
 
   create_table "users", force: true do |t|
