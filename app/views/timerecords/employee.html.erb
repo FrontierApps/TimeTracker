@@ -54,7 +54,7 @@
     <%end%>
     <% @time_diff_components = Time.diff(t.timein, @timeout, '%H %N') %>
 
-    <td><%= @time_diff_components[:diff] + @time_diff_components[:diff] %></td>
+    <td><%= @time_diff_components[:diff]%></td>
 
   </tr>
 <% end %>
