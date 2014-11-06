@@ -111,9 +111,10 @@ skip_before_filter :verify_authenticity_token, :only => ['admin']
    @timetotal = 0
    @timerecord.each do |t|
    if (t.timeout == nil)
-    @timetotal = @timetotal + (Time.current - t.timein)
+    @time_diff_components = Time.diff(t.timein, Time.current, '%m')
+    @timetotal = @timetotal + (@time_diff_components[:diff].to_f / 60)
    else 
-    @timetotal = @timetotal + (t.timeout - t.timein)
+    @timetotal = @timetotal + (t.total)
    end
   end
  end

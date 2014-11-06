@@ -52,9 +52,9 @@
     <td><%= t.timeout.strftime("%I:%M %p") %></td>
     <%@timeout = t.timeout%>
     <%end%>
-    <% @time_diff_components = Time.diff(t.timein, @timeout, '%H %N') %>
+    <% @time_diff_components = Time.diff(t.timein, @timeout, '%m') %>
 
-    <td><%= @time_diff_components[:diff]%></td>
+    <td><%= (@time_diff_components[:diff].to_f / 60).round(2)%> Hours</td>
 
   </tr>
 <% end %>
@@ -68,10 +68,9 @@
     <td></td>
     <td></td>
     <td>
-    <% @time_in_mins = ((@timetotal) / 1.minute).ceil %>
-    <% @time_in_hours = ((@timetotal) / 1.hour).ceil %>
-    <%=  @time_in_hours -1 %> hours
-  <%=  @time_in_mins - (@time_in_mins/60).ceil * 60 %> mins  </td>
+    
+    <%=  @timetotal.round(2) %> hours</td>
+  
   </tr>
  
 </table>
