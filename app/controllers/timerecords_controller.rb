@@ -81,15 +81,22 @@ skip_before_filter :verify_authenticity_token, :only => ['admin']
     end
  def update
   @timerecord = Timerecord.find(params[:id])
+  
    if (@timerecord.timeout == nil)
     @timerecord.timeout = Time.current
+    @time_diff_components = Time.diff(@timerecord.timein, Time.current, '%m')
+    @timerecord.total = @time_diff_components[:diff].to_f / 60
+      
     if @timerecord.update(timerecord1_params)
     redirect_to @timerecord
     else
     render 'edit'
     end
    else
+    @time_diff_components = Time.diff(@timerecord.timein, params[:timerecord][:timeout], '%m')
+    @timerecord.total = @time_diff_components[:diff].to_f / 60
     if @timerecord.update(timerecord_params)
+
     redirect_to @timerecord
     else
     render 'edit'
