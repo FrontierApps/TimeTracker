@@ -115,19 +115,7 @@ skip_before_filter :verify_authenticity_token, :only => ['admin']
    end
   
    @timerecord = Timerecord.selecteduser(params[:id]).weekstart(@startdate).weekend(@enddate).order(:timeout)
-   @timetotal = 0
-   @timerecord.each do |t|
-   if (t.timeout == nil)
-    @time_diff_components = Time.diff(t.timein, Time.current, '%m')
-    @timetotal = @timetotal + (@time_diff_components[:diff].to_f / 60)
-   else 
-    if t.total == nil
-    @timetotal = 0.00
-    else
-    @timetotal = @timetotal + (t.total)
-    end
-   end
-  end
+   
  end
  def task
    if (params[:startdate] == nil)

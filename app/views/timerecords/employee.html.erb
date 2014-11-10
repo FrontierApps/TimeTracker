@@ -26,6 +26,7 @@
   </tr>
  <tr>
  <%@time_diff_components = nil %>
+ <%@timetotal = 0%>
  <%@startdate.upto(@enddate) do |date|%>
    <% timestart=date.beginning_of_day%>
    <% timeend=date.end_of_day%>
@@ -55,6 +56,7 @@
     <% @time_diff_components = Time.diff(t.timein, @timeout, '%m') %>
 
     <td><%= (@time_diff_components[:diff].to_f / 60).round(2)%> Hours</td>
+    <% @timetotal = @timetotal+ (@time_diff_components[:diff].to_f / 60).round(2) %>
 
   </tr>
 <% end %>
