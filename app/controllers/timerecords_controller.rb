@@ -121,6 +121,7 @@ skip_before_filter :verify_authenticity_token, :only => ['admin']
     @time_diff_components = Time.diff(t.timein, Time.current, '%m')
     @timetotal = @timetotal + (@time_diff_components[:diff].to_f / 60)
    else 
+    @timetotal = 0.00
     @timetotal = @timetotal + (t.total)
    end
   end
