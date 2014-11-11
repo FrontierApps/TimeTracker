@@ -10,6 +10,7 @@
     <th class="column_wide">Time Out</th>
     <th class="column_wide">Total</th>
   </tr>
+  <% @timetotal = 0 %>
  <%= render partial: "task", collection: @task_all %>
  <tr>
     <td></td>
@@ -17,11 +18,7 @@
     <td></td>
     <td></td>
     <td></td>
-    <td>
-    <% @time_in_mins = ((@timetotal) / 1.minute).ceil %>
-    <% @time_in_hours = ((@timetotal) / 1.hour).ceil %>
-    <%=  @time_in_hours -1 %> hours
-    <%=  @time_in_mins - (@time_in_mins/60).ceil * 60 %> mins  </td>
+    <td>   <%=  @timetotal.round(2) %> hours </td>
   </tr>
 </table>
 </div>

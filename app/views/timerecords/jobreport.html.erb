@@ -17,15 +17,12 @@
     <th class="column_wide">Time Out</th>
     <th class="column_wide">Total</th>
   </tr>
+  <% @timetotal = 0 %>
 <% @timerecord.order(task_id: :asc).each do |t| %>
 <%if (t.timeout == nil)%>
-     <% @time_in_mins = ((Time.current - t.timein) / 1.minute).ceil %>
-     <% @time_in_hours = ((Time.current - t.timein) / 1.hour).ceil %>  
-     <% @timeout = Time.current %>
+    <% @timeout = Time.current %>
 <%else%>
-     <% @time_in_mins = ((t.timeout - t.timein) / 1.minute).ceil %>
-     <% @time_in_hours = ((t.timeout - t.timein) / 1.hour).ceil %>
-     <% @timeout = t.timeout %>
+    <% @timeout = t.timeout %>
 <% end %>
  <tr>
     <td><%= link_to '', edit_timerecord_path(t.id), :class => 'glyphicon glyphicon-pencil' %></td>
@@ -33,10 +30,14 @@
     <td><%=link_to t.task.taskname, :action => "task", :id => t.task.id%></td>
     <td><%= t.timein.strftime("%I:%M %p") %></td>
     <td><%= @timeout.strftime("%I:%M %p") %></td>
-    <td><%=  @time_in_hours-1 %> hours
-    <%=  @time_in_mins - (@time_in_mins/60).ceil * 60 %> mins</td>
+    <td>
+     <% @time_diff_components = Time.diff(t.timein, @timeout, '%m') %>
+  <%= (@time_diff_components[:diff].to_f / 60).round(2)%> Hours </td>
+
 </tr>
 
+    
+    <% @timetotal = @timetotal+ (@time_diff_components[:diff].to_f / 60).round(2) %>
 
 
 
@@ -49,11 +50,7 @@
     <td></td>
     <td></td>
     <td></td>
-    <td>
-    <% @time_in_mins = ((@timetotal) / 1.minute).ceil %>
-    <% @time_in_hours = ((@timetotal) / 1.hour).ceil %>
-    <%=  @time_in_hours -1 %> hours
-  <%=  @time_in_mins - (@time_in_mins/60).ceil * 60 %> mins  </td>
+    <td>   <%=  @timetotal.round(2) %> hours </td>
   </tr>
 </table>
 </div>
