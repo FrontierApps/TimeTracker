@@ -53,4 +53,4 @@ production:
  database: rails
  username: shane
  password: shane4878
- host: 99.29.188.14
+ host: localhost
