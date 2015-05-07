@@ -53,4 +53,4 @@ production:
  database: rails
  username: shane
  password: shane4878
- host: localhost
+ host: tracker.midwestsignco.com
