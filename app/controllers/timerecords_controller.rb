@@ -30,23 +30,22 @@ skip_before_filter :verify_authenticity_token, :only => ['admin']
 
 	def new				
 		 time = Timerecord.currentuser(current_user.id).notimeout.exists?
-	  if time
+	  
+    if time
     @exist_timerecord = Timerecord.currentuser(current_user.id).notimeout.first
-    if (@exist_timerecord.jobnumber == params[:job_id])
-     redirect_to :action => 'timeout', :id => @exist_timerecord.id		
-    elsif (params[:job_id]=='dayend')
-     @old_timerecord = Timerecord.find_by(id: @exist_timerecord.id)
-     flash[:notice] = "Going home so soon? "
-     @old_timerecord.update(timeout: Time.current)
-     render 'admin'
-    else
-     @old_timerecord = Timerecord.find_by(id: @exist_timerecord.id)
-     flash[:notice] = "You were just timed out of job number "+ @exist_timerecord.jobnumber
-     @old_timerecord.update(timeout: Time.current)
-     @timerecord = Timerecord.new	    
-     @timerecord.jobnumber = params[:job_id]
-    end
-	  else 		  
+    
+      if (@exist_timerecord.jobnumber == params[:job_id])
+       redirect_to :action => 'timeout', :id => @exist_timerecord.id		
+      
+      else
+       @old_timerecord = Timerecord.find_by(id: @exist_timerecord.id)
+       flash[:notice] = "You were just timed out of job number "+ @exist_timerecord.jobnumber
+       @old_timerecord.update(timeout: Time.current)
+       @timerecord = Timerecord.new	    
+       @timerecord.jobnumber = params[:job_id]
+      end
+	  
+    else 		  
 		  @timerecord = Timerecord.new	    
 	   @timerecord.jobnumber = params[:job_id]
 	  end

@@ -1,0 +1,7 @@
+<h1>Listing contacts</h1>
+ 
+ <select>
+  <% @contacts.each do |contact| %>
+    <option><%= contact.CompanyName %></option>
+  <% end %>
+</select>

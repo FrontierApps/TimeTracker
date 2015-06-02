@@ -1,4 +1,4 @@
 class Contacts < ActiveRecord::Base
-	has_many :jobnumbers
+any :jobnumbers
 	has_many :timerecords, through: :jobnumbers
 end
