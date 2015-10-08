@@ -1,4 +1,4 @@
-class Contacts < ActiveRecord::Base
-any :jobnumbers
+class Contacts < ActiveRecord::Base	
+	has many :jobnumbers
 	has_many :timerecords, through: :jobnumbers
 end
