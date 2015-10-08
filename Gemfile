@@ -36,6 +36,8 @@ gem 'autoprefixer-rails'
 
 gem 'time_diff'
 
+gem 'filterrific'
+
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 
