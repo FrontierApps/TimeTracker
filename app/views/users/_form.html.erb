@@ -1,0 +1,59 @@
+<%= form_for @user, remote: true do |f| %>
+  <div class="modal-dialog" role="form">
+    <div class="modal-content">
+    <div class="modal-header">
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button><h4 class="modal-title" id="myModalLabel"><%= :title%></h4>
+    </div>
+      <div class="modal-body">
+
+<% if @user.errors.any? %>
+    <div id="error_explanation">
+      <h2>
+        <%= pluralize(@user.errors.count, "error") %> prohibited
+        this user from being saved:
+      </h2>
+      <ul>
+        <% @user.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+  <div class="modalLeft">
+    <p>
+      <%= f.label :firstname %><br>
+      <%= f.text_field :firstname %>
+    </p>    
+    <p>
+      <%= f.label :lastname %><br>
+      <%= f.text_field :lastname %>
+    </p>    
+    <p>
+      <%= f.label :email %><br>
+      <%= f.text_field :email %>
+    </p>
+    <p>
+      <%= f.label :admin %><br>
+      <%= f.check_box :admin %>
+    </p>
+    <p>
+      <%= f.label :active %><br>
+      <%= f.check_box :active %>
+    </p>
+  </div>
+    <div class="modalRight">
+    
+    
+  </div>
+  </div>
+
+
+<div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <%= f.submit ({ :class => 'btn btn-primary'})%>
+        
+</div>
+</div>
+</div>
+<% end %>
+

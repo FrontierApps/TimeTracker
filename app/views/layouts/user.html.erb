@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Employee Manager</title>
+    <meta name="viewport" content="initial-scale=1.0001, minimum-scale=1.0001, maximum-scale=1.0001, user-scalable=no"/>
+    <%= csrf_meta_tags %>
+    
+    <%= stylesheet_link_tag    'application'%>
+    <%= javascript_include_tag 'application' %>
+  </head>
+
+  <body>
+
+  <%= render :partial => 'shared/navbar' %>
+  <div id="wrapper">
+        <div id="page-content-wrapper">
+            <div class="container-fluid">
+                <div>
+                  <div class="col-sm-1">
+                  </div>
+                  <div class="col-sm-8">
+
+                     <%= yield %>
+                      <div id="user_nav">
+                      <% if user_signed_in? %>
+                      Signed in as <%= current_user.email %>. Not you?
+                      <%= link_to "Sign out", destroy_user_session_path %>
+                      <% else %>
+                      <%= link_to "Sign up", new_user_registration_path %> or
+                      <%= link_to "Sign in", new_user_session_path %>
+                      <% end %>
+                      </div>
+                  </div>
+                </div>
+            </div>
+        </div>
+    <div id="myUserForm" class="modal fade" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"></div>
+  </div>  
+  
+  </body>
+</html>

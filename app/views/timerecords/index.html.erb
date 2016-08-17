@@ -1,95 +1,59 @@
-<% if current_user.admin? %>
-<%= render 'sidemenu' %>
-<% else %>
+<div class="timerecords">
+<h2> Hours from <%= params[:weekstart] %> to <%= params[:weekend] %> for <br> <%= @user.firstname %> <%= @user.lastname%>
+	<small> 
+		
+	</small>
+</h2>
+<div>
+<%= form_tag nil, :method => :get, :class => 'navbar-form navbar-left' do %>
+			<div class="form-group">
+			<%=date_field_tag 'weekstart', $beginning_of_last_week, :class => "form-control"%>
+			<%=date_field_tag 'weekend', $end_of_last_week, :class => "form-control"%>
+      		<%=hidden_field_tag 'selecteduser', '', value: params[:selecteduser]%>
+			</div>
+			<button type="submit" class="btn btn-default">Submit</button>
 <% end %>
-<% @user = @timerecord.first %>
-
-<% if @user == nil%>
- <h2> There are no records for this time period </h2>
- <h2><%=@startdate%> to <%=@enddate%></h2>
-<%else%>
-<h1><%= @user.user.firstname%></h1>
-<h2><%=@startdate%> to <%=@enddate%></h2>
-
-<div class="table-responsive">
-
-
-<table class="table table-hover">
-  <tr>
-    <th></th>
-    <th class="column_wide">CompanyName</th>
-    <th class="column_wide">Job Name</th>       
-    <th class="column_wide">Job Number</th>
-    <th class="column_wide">Task</th>       
-    <th class="column_wide">Date</th>       
-    <th class="column_wide">Time In</th>
-    <th class="column_wide">Time Out</th>
-    <th class="column_wide">Total</th>
-  </tr>
- <tr>
- <%@startdate.upto(@enddate) do |date|%>
-   <% timestart=date.beginning_of_day%>
-   <% timeend=date.end_of_day%>
-   <% Timerecord.selecteduser(params[:id]).weekstart(timestart).weekend(timeend).find_each do |t| %>
-<%@jobname = Jobnumbers.find_by JobNumber: t.jobnumber%>
-    <%if (@jobname == nil)%>
-    <td></td>
-    <td></td>
-    <td></td>
-    <%else%>
-    <%@customername = Contacts.find_by! id: @jobname.contacts_id%>
-    <td><%= link_to '', edit_timerecord_path(t.id), :class => 'glyphicon glyphicon-pencil' %></td>
-    <td><%=@customername.CompanyName%></td>
-    <td><%=@jobname.projectName%></td>
-    <%end%>
-    <td><%=link_to t.jobnumber, :controller => "timerecords", :action => "jobreport", :id => t.jobnumber %></td> 
-    <td><%=link_to t.task.taskname, :action => "task", :id => t.task.id%></td>
-    <td><%= t.timein.strftime("%m-%d") %></td>
-    <td><%= t.timein.strftime("%I:%M %p") %></td>
-    <%if (t.timeout == nil)%>
-    <td class="danger"><%= Time.current.strftime("%I:%M %p") %></td>
-    <%@timeout = Time.current%>
-    <%else%>
-    <td><%= t.timeout.strftime("%I:%M %p") %></td>
-    <%@timeout = t.timeout%>
-    <%end%>
-     <% @time_in_mins = ((@timeout - t.timein) / 1.minute).ceil %>
-     <% @time_in_hours = ((@timeout - t.timein) / 1.hour).ceil %>
-    <td><%=  @time_in_hours-1 %> hours
-    <%=  @time_in_mins - (@time_in_mins/60).ceil * 60 %> mins</td>
-  </tr>
-<% end %>
-<%end%>
-<tr>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td>
-    <% @time_in_mins = ((@timetotal) / 1.minute).ceil %>
-    <% @time_in_hours = ((@timetotal) / 1.hour).ceil %>
-    <%=  @time_in_hours -1 %> hours
-  <%=  @time_in_mins - (@time_in_mins/60).ceil * 60 %> mins  </td>
-  </tr>
- 
-</table>
-
 
 </div>
-<%end%>
+  <div class="table-responsive">
 
 
- 
-  <%= link_to 'Back', timerecords_admin_path %>
+  <table class="table table-hover">
+  <% @timerecords.group_by(&:day).each do |day, timerecords| %>
 
+    <tr>
+      
+      <th colspan="2"><%= day %></th>    
+      <th>Job</th>          
+      <th>In</th>
+      <th>Out</th>
+      <th>Total</th>
+    </tr>
 
+      <%= render timerecords %>
+    <tr>    
+      <td></td>
+      <td></td>
+      <td></td>
+      <td colspan="2" align = "right">Total Hours for the day</td>      
+      <td><strong><%= timerecords.to_a.sum(&:timeTotal).round(2)%></strong></td>
+   </tr>
+    <% end %>
+    <tr>    
+      <td></td>
+    	<td></td>
+      <td></td>
+      <td colspan="2" align = "right">Total Hours</td>
+      <td><strong><%= @timerecords.to_a.sum(&:timeTotal).round(2)%></strong></td>
+   </tr>
+
+   </table>
+
+   
+  </div>
+  <div>
+  <%= link_to 'Insert missing record', new_timerecord_path(:user_id => @user.id, :addrecord => "1"), {class: 'btn btn-primary'} if current_user.admin?%>
+  </div>
+</div>   
 
 </div>
-  
-    
-
-  
-

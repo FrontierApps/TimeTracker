@@ -1,0 +1,28 @@
+<div id='user'>
+	
+  <h2><%= @user.firstname%> <%= @user.lastname %>
+
+ <small>  
+ <%= link_to edit_user_path(@user),  {:remote => true, 'data-toggle' =>  "modal", 'data-target' => '#myUserForm'} do  %>
+  <span class="glyphicon glyphicon-pencil"></span>
+  <%end%>
+	<%= link_to user_path(@user),
+              method: :delete,
+              data: { confirm: 'Are you sure?' } do%>
+  <span class="glyphicon glyphicon-remove"></span>
+  <%end%>
+  </small>
+  </h2>
+
+  <div>  
+    <div>
+      <span><strong>Email: </strong></span>
+      <span><%=mail_to @user.email%></span>
+      <span><strong>Admin: </strong></span>
+      <span><%= check_box_tag 'admin', '1', ('checked' if @user.admin == 1) , :disabled => true %></span>
+      <span><strong>Active: </strong></span>
+      <span><%= check_box_tag 'active', '1', ('checked' if @user.active == 1) , :disabled => true %></span>
+    </div>
+  </div>
+<%= link_to 'timerecords', timerecords_path(:selecteduser => @user, :weekstart => $beginning_of_this_week, :weekend => $end_of_this_week)%>
+

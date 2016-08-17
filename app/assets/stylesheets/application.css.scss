@@ -1,20 +1,65 @@
+
 @import "bootstrap-sprockets";
 @import "bootstrap";
+@import "bootstrap/theme";
+@import "select2";
+@import "select2-bootstrap";
 @import "timerecord";
+@import "contacts";
 
-/*
- * This is a manifest file that'll be compiled into application.css, which will include all the files
- * listed below.
- *
- * Any CSS and SCSS file within this directory, lib/assets/stylesheets, vendor/assets/stylesheets,
- * or vendor/assets/stylesheets of plugins, if any, can be referenced here using a relative path.
- *
- * You're free to add application-wide styles to this file and they'll appear at the bottom of the
- * compiled file so the styles you add here take precedence over styles defined in any styles
- * defined in the other CSS/SCSS files in this directory. It is generally better to create a new
- * file per style scope.
- *
- *= require_tree .
- *= require_self
- *= require bootstrap.min
- */
+
+body { 
+	padding-top: 50px; 
+	}
+a {
+	color: gray;
+}
+.search {
+	display: inline-block;
+	width: 100%;
+}
+
+.alignRight{
+	float: right;
+}
+@media(max-width:320px){
+body{
+    zoom: .86;
+    }
+}
+
+.col-sm-8{
+	padding-left: 0px;
+}
+.thumbnail {
+	background-color: #DDD;
+	box-shadow: 2px 2px 2px rgba(0, 0, 0, .3);
+	max-width: 100%;
+	min-width: 100%;
+		@media (min-width: 768px){
+			max-width: 40em;
+			min-width: 18em;
+			display: flex;
+			.rightThumbnail{
+			border-left: 2px solid black;
+			height: 100%;
+			margin: 8px;
+			padding-left: 16px;
+			}
+			.leftThumbnail{
+			height: 100%;
+			margin: 8px;
+			}
+		}
+}
+.modal-body{
+display: flex;
+.modalLeft{
+width: 50%;
+}
+.modalRight{
+width: 50%;
+}
+
+
+}

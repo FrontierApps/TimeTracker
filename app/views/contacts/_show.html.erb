@@ -1,0 +1,24 @@
+<div id='contact'>
+	
+  <h2><%=@contact.CompanyName %>
+
+ <small>  
+ <%= link_to edit_contact_path(@contact),  {:remote => true, 'data-toggle' =>  "modal", 'data-target' => '#myContactForm'} do  %>
+  <span class="glyphicon glyphicon-pencil"></span>
+  <%end%>
+	<%= link_to contact_path(@contact),
+              method: :delete,
+              data: { confirm: 'Are you sure?' } do%>
+  <span class="glyphicon glyphicon-remove"></span>
+  <%end%>
+  </small>
+  </h2>
+
+  <div>
+   
+      <%= render @contact%>
+      
+
+ 
+  </div>
+</div>   

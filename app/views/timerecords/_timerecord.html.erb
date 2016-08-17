@@ -1,0 +1,23 @@
+
+ <tr>
+
+ 	<td>
+  <%if current_user.admin? %>
+    <%= link_to '', edit_timerecord_path(timerecord.id, :selecteduser => params[:selecteduser], :weekstart => params[:weekstart], :weekend => params[:weekend]), :class => 'glyphicon glyphicon-pencil' %>
+  <%end%>  
+  </td>
+
+ 	<td>
+ 	<%if current_user.admin? %>
+ 		<%= link_to timerecord_path(timerecord.id),
+              method: :delete,
+              data: { confirm: 'Are you sure?' } do %>
+  		<span class="glyphicon glyphicon-remove"></span>
+  		<%end%>
+  	<%end%>
+  	</td>
+    <td><%= timerecord.jobnumber %></td> 
+    <td><%= timerecord.timein.strftime("%I:%M %p") %></td>
+    <td><%= timerecord.timed_out_status %></td>
+    <td><%= timerecord.timeTotal%></td>
+ </tr>

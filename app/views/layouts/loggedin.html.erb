@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Midwest Sign Portal</title>
+    <meta name="viewport" content="initial-scale=1.0001, minimum-scale=1.0001, maximum-scale=1.0001, user-scalable=no"/>
+    <%= csrf_meta_tags %>
+   
+    <%= stylesheet_link_tag    'application', media: 'all'%>
+    <%= javascript_include_tag 'application' %>
+  </head>
+
+  <body>
+  <%= render :partial => 'shared/navbar' %>
+  <% if notice %>
+    <p class="alert alert-success"><%= notice %></p>
+  <% end %>
+  <% if alert %>
+    <p class="alert alert-danger"><%= alert %></p>
+  <% end %>
+  <div id="wrapper">
+        <div id="page-content-wrapper">
+            <div class="container-fluid">
+                <div>
+                  <div class="col-sm-1">
+                  </div>
+                  <div class="col-sm-8">
+
+                     <%= yield %>
+                      
+                  </div>
+                </div>
+            </div>
+        </div>
+  </div>  
+  
+  </body>
+</html>

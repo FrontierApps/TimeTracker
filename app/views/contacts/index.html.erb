@@ -1,7 +1,16 @@
-<h1>Listing contacts</h1>
- 
- <select>
-  <% @contacts.each do |contact| %>
-    <option><%= contact.CompanyName %></option>
-  <% end %>
-</select>
+
+
+<div class="search">
+	<%= form_tag(contacts_path, :method => "get", id: "search-form", remote: true) do %>
+		<div class="form-group searchText">
+			<%= select_tag "id", options_from_collection_for_select(@contacts,"id", "CompanyName", params[:search]), id: "search", include_blank: true, :onchange => "$(this.form).submit();"%>
+		</div>
+	<% end %>
+</div>
+<div class="company">
+	<span>
+		<%= button_to 'New Company', new_contact_path,  {:remote => true, 'data-toggle' =>  "modal", 'data-target' => '#myContactForm', :method => "get", "class" => "btn btn-primary"} %>
+	</span>
+</div>	
+	     		  	
+<div id="contact"></div>

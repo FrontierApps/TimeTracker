@@ -1,0 +1,33 @@
+<div class="thumbnail">
+<div class="col-sm-8 leftThumbnail">
+  <div>
+    <span><strong>Name: </strong></span>
+    <span class="alignRight"><%= contacts.Title %><%= contacts.FirstName%> <%= contacts.LastName %></span>
+  </div>
+  <div>
+    <span><strong>Cell Phone: </strong></span>
+    <span class="alignRight"><%= number_to_phone(contacts.MobilePhone, area_code: true)%></span>
+  </div>
+  <div>
+    <span><strong>Email: </strong></span>
+    <span class="alignRight"><%=mail_to contacts.EmailName%></span>
+  </div>
+  
+</div>
+<div class="col-sm-8 rightThumbnail">
+  <strong>Address:</strong>
+  <p><%= contacts.Address%></p>
+  <p><%= contacts.Address1 %></p>
+  <p><%= contacts.City%> <%=contacts.StateOrProvince %> <%=contacts.PostalCode %></p>
+  
+  <p><%= link_to "Go to map", "https://www.google.com/maps/search/"+ contacts.Address+" "+contacts.City+" "+contacts.StateOrProvince+" "+contacts.PostalCode %></p>
+
+  <strong>phone:</strong>
+  
+  <p><%= number_to_phone(contacts.WorkPhone, area_code: true) %></p>
+  <strong>fax:</strong>
+  <p><%= number_to_phone(contacts.FaxNumber, area_code: true) %></p>
+</div>
+  
+
+</div>

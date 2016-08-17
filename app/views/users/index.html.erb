@@ -1,2 +1,8 @@
-<h1>Users#index</h1>
-<p>Find me in app/views/users/index.html.erb</p>
+<div class="search">
+	<%= form_tag(users_path, :method => "get", id: "search-form", remote: true) do %>
+		<div class="form-group searchText">
+			<%= select_tag "id", options_from_collection_for_select(@users,"id", :fullName, params[:search]), id: "search", include_blank: true, :onchange => "$(this.form).submit();", style: "width: 75%" %>
+		</div>
+	<% end %>
+</div>
+<div id="user"></div>
