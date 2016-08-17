@@ -165,6 +165,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  activerecord
   autoprefixer-rails
   bootstrap-sass (~> 3.2.0)
   coffee-rails (~> 4.0.0)

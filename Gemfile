@@ -29,6 +29,7 @@ gem 'spring',        group: :development
 gem 'devise'
 
 # gem 'jquery-turbolinks'
+gem 'activerecord'
 
 gem 'bootstrap-sass', '~> 3.2.0'
 
