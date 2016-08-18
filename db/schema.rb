@@ -49,38 +49,6 @@ ActiveRecord::Schema.define(version: 20160817150427) do
     t.datetime "updated_at"
   end
 
-  create_table "jobnumbers", force: :cascade do |t|
-    t.string   "JobNumber",   limit: 45
-    t.string   "contacts_id", limit: 50
-    t.date     "DateStart"
-    t.boolean  "Complete",                default: false
-    t.string   "projectName", limit: 45
-    t.string   "Rep",         limit: 45
-    t.string   "RequestedBy", limit: 90
-    t.string   "QuoteRef",    limit: 45
-    t.date     "DueDate"
-    t.string   "notes",       limit: 400
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  create_table "tasks", force: :cascade do |t|
-    t.string   "taskname",   limit: 255
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  create_table "timerecords", force: :cascade do |t|
-    t.string   "jobnumber",  limit: 255
-    t.integer  "user_id",    limit: 4
-    t.integer  "task_id",    limit: 4
-    t.datetime "timein"
-    t.datetime "timeout"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.float    "total",      limit: 24
-  end
-
   create_table "users", force: :cascade do |t|
     t.string   "email",                  limit: 255, default: "",    null: false
     t.string   "encrypted_password",     limit: 255, default: "",    null: false

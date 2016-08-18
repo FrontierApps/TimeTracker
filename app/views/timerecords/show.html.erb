@@ -1,0 +1,39 @@
+<div> <%= @jobnumber.JobNumber %> </div>
+<div> <%= @jobnumber.projectName %> </div>
+<div> <%= @contact.CompanyName %> </div>
+<div class="table-responsive">
+
+
+  <table class="table table-hover">
+  <% @timerecords.group_by(&:day).each do |day, timerecords| %>
+
+    <tr>
+      
+      <th colspan="2"><%= day %></th>    
+      <th>Job</th>          
+      <th>In</th>
+      <th>Out</th>
+      <th>Total</th>
+    </tr>
+
+      <%= render timerecords %>
+    <tr>    
+      <td></td>
+      <td></td>
+      <td></td>
+      <td colspan="2" align = "right">Total Hours for the day</td>      
+      <td><strong><%= timerecords.to_a.sum(&:timeTotal).round(2)%></strong></td>
+   </tr>
+    <% end %>
+    <tr>    
+      <td></td>
+    	<td></td>
+      <td></td>
+      <td colspan="2" align = "right">Total Hours</td>
+      <td><strong><%= @timerecords.to_a.sum(&:timeTotal).round(2)%></strong></td>
+   </tr>
+
+   </table>
+
+   
+  </div>

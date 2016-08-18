@@ -16,8 +16,8 @@
   		<%end%>
   	<%end%>
   	</td>
-    <td><%= timerecord.jobnumber %></td> 
+    <td><%= link_to timerecord.jobnumber, jobnumber_path(timerecord.jobnumber) %></td> 
     <td><%= timerecord.timein.strftime("%I:%M %p") %></td>
     <td><%= timerecord.timed_out_status %></td>
-    <td><%= timerecord.timeTotal%></td>
+    <td><%= timerecord.timeTotal %></td>
  </tr>
