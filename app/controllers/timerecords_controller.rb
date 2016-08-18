@@ -17,6 +17,14 @@ class TimerecordsController < ApplicationController
       @timerecords = Timerecord.filter(params.slice(:selecteduser, :weekstart, :weekend)).decorate
       @user = User.find(params[:selecteduser])
   end
+  
+  def show
+    @jobnumber = Jobnumbers.jobnumber(params[:id]).first
+    @contact = Contacts.contact(@jobnumber.contacts_id).first
+    @timerecords = Timerecord.jobnumber(params[:id]).decorate
+    
+  end
+
 
   def new 
     if (params.has_key?(:selecteduser))

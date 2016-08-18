@@ -5,6 +5,6 @@ class Contacts < ActiveRecord::Base
 		
   default_scope {order('CompanyName ASC')}
   
-		
+	scope :contact, ->(contact) {where('id = ?', contact )}	
 
 end

@@ -5,6 +5,7 @@ resources :users
 root 'contacts#index'
 
 resources :timerecords
+resources :jobnumbers
   
 get 'timerecords/timeout/:id' => 'timerecords#timeout'  
  
