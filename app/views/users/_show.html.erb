@@ -19,7 +19,7 @@
       <span><strong>Email: </strong></span>
       <span><%=mail_to @user.email%></span>
       <span><strong>Admin: </strong></span>
-      <span><%= check_box_tag 'admin', '1', ('checked' if @user.admin == 1) , :disabled => true %></span>
+      <span><%= check_box_tag 'admin', '1', ('checked' if @user.admin == true) , :disabled => true %></span>
       <span><strong>Active: </strong></span>
       <span><%= check_box_tag 'active', '1', ('checked' if @user.active == 1) , :disabled => true %></span>
     </div>
