@@ -14,7 +14,12 @@
       <%= f.datetime_local_field :timein, :step => "1"%>
       </div>
       <div>
-      <%= f.datetime_local_field :timeout, :step => "1" %>
+      <% if @timerecord.persisted? %>
+        <%= f.datetime_local_field :timeout, :step => "1" %>
+      <% else %>
+        <%= f.datetime_local_field :timeout, :step => "1", :disabled => true %>
+      <% end %>
+
       </div>
     
 
