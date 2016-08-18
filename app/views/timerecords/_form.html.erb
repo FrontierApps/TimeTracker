@@ -5,22 +5,40 @@
    <%= f.hidden_field :user_id %>
    <%= hidden_field_tag(:addrecord, value = params[:addrecord]) %>
 
-    
-      <div>
-        <%= f.label :jobnumber %><br>
-        <%= f.text_field :jobnumber%>
-      </div>
-      <div>
-      <%= f.datetime_local_field :timein, :step => "1"%>
-      </div>
-      <div>
-      <% if @timerecord.persisted? %>
-        <%= f.datetime_local_field :timeout, :step => "1" %>
-      <% else %>
-        <%= f.datetime_local_field :timeout, :step => "1", :disabled => true %>
-      <% end %>
+      <%if current_user.admin? %>
+        <div>
+          <%= f.label :jobnumber %><br>
+          <%= f.text_field :jobnumber%>
+        </div>
+        <div>
+        <%= f.datetime_local_field :timein, :step => "1" %>
+        </div>
+        <div>
+        <% if @timerecord.persisted? %>
+          <%= f.datetime_local_field :timeout, :step => "1" %>
+        <% else %>
+          <%= f.datetime_local_field :timeout, :step => "1", :disabled => true %>
+        <% end %>
 
-      </div>
+        </div>
+      <% else %>
+        <div>
+        <%= f.label :jobnumber %><br>
+        <%= f.text_field :jobnumber, :readonly => true%>
+        </div>
+        <div>
+        <%= f.datetime_local_field :timein, :step => "1", :readonly => true %>
+        </div>
+        <div>
+          <% if @timerecord.persisted? %>
+          <%= f.datetime_local_field :timeout, :step => "1", :readonly => true %>
+          <% else %>
+          <%= f.datetime_local_field :timeout, :step => "1", :disabled => true %>
+          <% end %>
+
+        </div>
+
+      <% end %>
     
 
     <div class="big_drop"> 
