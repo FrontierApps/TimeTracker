@@ -1,7 +1,7 @@
 class TimerecordsController < ApplicationController
   layout 'loggedin'
     d=Time.zone.today
-  $timenow = Time.zone.now 
+    $timenow = Time.zone.now 
     $beginning_of_this_week = d.at_beginning_of_week-1.day
     $end_of_this_week = d.at_beginning_of_week+5.day
     $beginning_of_last_week = d.at_beginning_of_week-8.day
@@ -18,13 +18,7 @@ class TimerecordsController < ApplicationController
       @user = User.find(params[:selecteduser])
   end
   
-  def show
-    @jobnumber = Jobnumbers.jobnumber(params[:id]).first
-    @contact = Contacts.contact(@jobnumber.contacts_id).first
-    @timerecords = Timerecord.jobnumber(params[:id]).decorate
-    
-  end
-
+  
 
   def new 
     if (params.has_key?(:selecteduser))
