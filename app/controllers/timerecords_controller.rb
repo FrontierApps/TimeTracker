@@ -16,6 +16,7 @@ class TimerecordsController < ApplicationController
     end
       @timerecords = Timerecord.filter(params.slice(:selecteduser, :weekstart, :weekend)).decorate
       @user = User.find(params[:selecteduser])
+      @tasks = Task.all
   end
   
   
