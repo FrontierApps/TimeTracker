@@ -9,7 +9,9 @@ resources :jobnumbers
   
 get 'timerecords/timeout/:id' => 'timerecords#timeout'  
  
-resources :contacts
+resources :contacts do
+	resources :jobnumbers
+end
   
  
 end

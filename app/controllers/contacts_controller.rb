@@ -14,6 +14,7 @@ class ContactsController < ApplicationController
       @contacts = Contacts.all.order('CompanyName asc')
       if params[:id]
       @contact = Contacts.find(params[:id])
+      @jobnumbers = Jobnumbers.contact(params[:id])
           respond_to do |format|
             format.html { render "show" }
             format.js { render "show" }
@@ -24,6 +25,7 @@ class ContactsController < ApplicationController
 
     def show
     @contact = Contacts.find(params[:id])
+    @jobnumbers = Jobnumbers.contact(params[:id])
     
         respond_to do |format|
           format.html { render "show" }
