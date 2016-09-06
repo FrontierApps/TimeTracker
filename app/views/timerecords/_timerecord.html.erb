@@ -17,6 +17,8 @@
   	<%end%>
   	</td>
     <td><%= link_to timerecord.jobnumber, jobnumber_path(timerecord.jobnumber) %></td> 
+    <% @task= Task.find(timerecord.task_id) %>
+    <td><%= @task.taskname %></td> 
     <td><%= timerecord.timein.strftime("%I:%M %p") %></td>
     <td><%= timerecord.timed_out_status %></td>
     <td><%= timerecord.timeTotal %></td>
