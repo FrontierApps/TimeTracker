@@ -14,10 +14,19 @@ class TimerecordsController < ApplicationController
       params[:selecteduser] = current_user.id
 
     end
-      @timerecords = Timerecord.filter(params.slice(:selecteduser, :weekstart, :weekend)).decorate
-      @user = User.find(params[:selecteduser])
+      @timerecords = Timerecord.filter(params.slice(:selecteduser, :weekstart, :weekend, :jobnumber)).decorate
       @tasks = Task.all
+      @users = User.all
+    if params[:jobnumber]
+      render 'jobnumber'
+      
+    else
+      @user = User.find(params[:selecteduser])
+    end
+
+      
   end
+
   
   
 
@@ -122,7 +131,7 @@ private
 
 # A list of the param names that can be used for filtering the Product list
 def filtering_params(params)
-  params.slice(:selecteduser, :weekstart, :weekend)
+  params.slice(:selecteduser, :weekstart, :weekend, :jobnumber)
 end
 
 def timerecord_params

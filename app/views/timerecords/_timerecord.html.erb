@@ -16,7 +16,8 @@
   		<%end%>
   	<%end%>
   	</td>
-    <td><%= link_to timerecord.jobnumber, jobnumber_path(timerecord.jobnumber) %></td> 
+    <td><%= timerecord.user.firstname %></td>
+    <td><%= link_to timerecord.jobnumber, {:controller => 'timerecords', :action => 'index', :jobnumber =>timerecord.jobnumber} %></td> 
     <% @task= Task.find(timerecord.task_id) %>
     <td><%= @task.taskname %></td> 
     <td><%= timerecord.timein.strftime("%I:%M %p") %></td>

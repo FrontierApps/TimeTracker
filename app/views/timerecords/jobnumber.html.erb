@@ -1,9 +1,5 @@
 <div class="timerecords">
-<h2> Hours from <%= params[:weekstart] %> to <%= params[:weekend] %> for <br> <%= @user.firstname %> <%= @user.lastname%>
-  <small> 
-    
-  </small>
-</h2>
+
 <div>
 <%= form_tag nil, :method => :get, :class => 'navbar-form navbar-left' do %>
 			<div class="form-group">
@@ -26,12 +22,12 @@
 
 
   <table class="table table-hover">
-  <% @timerecords.group_by(&:day).each do |day, timerecords| %>
+  <% @timerecords.group_by(&:task).each do |task, timerecords| %>
 
     <tr>
       
-      <th colspan="2"><%= day %></th>    
-      <th>Person</th>  
+      <th colspan="2"><%= task.taskname %></th>          
+      <th>Person</th>          
       <th>Job</th>          
       <th>Task</th>          
       <th>In</th>
@@ -46,7 +42,7 @@
       <td></td>
       <td></td>
       <td></td>
-      <td colspan="2" align = "right">Total Hours for the day</td>      
+      <td colspan="2" align = "right">Total Hours for the task</td>      
       <td><strong><%= timerecords.to_a.sum(&:timeTotal).round(2)%></strong></td>
    </tr>
     <% end %>
@@ -64,13 +60,7 @@
 
    
   </div>
-  <div>
-  <%if params[:jobnumber]%>
-
-  <%else%>
-  <%= link_to 'Insert missing record', new_timerecord_path(:user_id => @user.id, :addrecord => "1"), {class: 'btn btn-primary'} if current_user.admin?%>
-  <%end%>
-  </div>
+  
 </div>   
 
 </div>
