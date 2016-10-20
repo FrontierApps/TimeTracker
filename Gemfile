@@ -41,8 +41,6 @@ gem 'filterrific'
 
 gem 'responders'
 
-gem 'time_diff'
-
 gem "select2-rails"
 
 gem 'draper'
